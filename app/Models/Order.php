@@ -34,6 +34,11 @@ class Order extends Model
         ];
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'order_number';
+    }
+
     protected static function booted(): void
     {
         static::creating(function (Order $order) {
