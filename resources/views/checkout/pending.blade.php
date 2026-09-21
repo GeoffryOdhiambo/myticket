@@ -1,4 +1,6 @@
-@php($settings = \App\Models\Setting::current())
+@php
+    $settings = \App\Models\Setting::current();
+@endphp
 
 <x-layouts.app title="Order Status">
     <div

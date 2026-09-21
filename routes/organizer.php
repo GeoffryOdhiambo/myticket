@@ -30,7 +30,7 @@ Route::prefix('organizer')->name('organizer.')->group(function () {
 
         Route::resource('events.ticket-types', TicketTypeController::class)
             ->shallow()
-            ->except(['show']);
+            ->except(['show', 'index']);
 
         Route::get('tickets', [TicketController::class, 'index'])->name('tickets.index');
 

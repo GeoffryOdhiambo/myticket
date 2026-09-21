@@ -1,4 +1,6 @@
-@php($settings = \App\Models\Setting::current())
+@php
+    $settings = \App\Models\Setting::current();
+@endphp
 
 <x-layouts.app title="Contact">
     <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
