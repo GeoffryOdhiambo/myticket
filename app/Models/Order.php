@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'order_number',
@@ -85,5 +86,10 @@ class Order extends Model
     public function getTotalLabelAttribute(): string
     {
         return Setting::current()->formatPrice($this->total);
+    }
+
+    public function routeNotificationForMail(): string
+    {
+        return $this->customer_email;
     }
 }
