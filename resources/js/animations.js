@@ -40,3 +40,32 @@ export function countUp(el, target, duration = 1200) {
 
     requestAnimationFrame(tick);
 }
+
+export function initCounters() {
+    const targets = document.querySelectorAll('[data-counter-target]');
+    if (!targets.length) return;
+
+    const trigger = (el) => {
+        const value = parseInt(el.dataset.counterTarget, 10) || 0;
+        countUp(el, value);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+        targets.forEach(trigger);
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    trigger(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.4 }
+    );
+
+    targets.forEach((el) => observer.observe(el));
+}
