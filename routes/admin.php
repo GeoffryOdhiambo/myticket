@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest:web')->group(function () {
         Route::get('login', [LoginController::class, 'show'])->name('login');
-        Route::post('login', [LoginController::class, 'login'])->name('login.store');
+        Route::post('login', [LoginController::class, 'login'])->middleware('throttle:10,1')->name('login.store');
         Route::get('forgot-password', [PasswordResetController::class, 'showForgotForm'])->name('password.request');
-        Route::post('forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+        Route::post('forgot-password', [PasswordResetController::class, 'sendResetLink'])->middleware('throttle:5,1')->name('password.email');
         Route::get('reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
-        Route::post('reset-password', [PasswordResetController::class, 'reset'])->name('password.update');
+        Route::post('reset-password', [PasswordResetController::class, 'reset'])->middleware('throttle:5,1')->name('password.update');
     });
 
     Route::middleware('auth:web')->group(function () {

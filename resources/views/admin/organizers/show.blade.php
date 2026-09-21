@@ -42,6 +42,7 @@
             @if($events->isEmpty())
                 <x-empty-state icon="calendar-days" title="This organizer has not created any events yet." />
             @else
+                <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
                     <thead class="border-b border-neutral-100 bg-neutral-50 text-xs font-semibold uppercase tracking-wide text-neutral-500">
                         <tr>
@@ -68,6 +69,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             @endif
         </x-card>
     </div>

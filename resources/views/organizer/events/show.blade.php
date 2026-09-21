@@ -54,6 +54,7 @@
             @if($event->ticketTypes->isEmpty())
                 <x-empty-state icon="ticket" title="No ticket types yet." description="Add at least one ticket type before publishing this event." />
             @else
+                <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
                     <thead class="border-b border-neutral-100 bg-neutral-50 text-xs font-semibold uppercase tracking-wide text-neutral-500">
                         <tr>
@@ -82,6 +83,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             @endif
         </x-card>
     </div>

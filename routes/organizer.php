@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('organizer')->name('organizer.')->group(function () {
     Route::middleware('guest:organizer')->group(function () {
         Route::get('login', [LoginController::class, 'show'])->name('login');
-        Route::post('login', [LoginController::class, 'login'])->name('login.store');
+        Route::post('login', [LoginController::class, 'login'])->middleware('throttle:10,1')->name('login.store');
         Route::get('forgot-password', [PasswordResetController::class, 'showForgotForm'])->name('password.request');
-        Route::post('forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+        Route::post('forgot-password', [PasswordResetController::class, 'sendResetLink'])->middleware('throttle:5,1')->name('password.email');
         Route::get('reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
-        Route::post('reset-password', [PasswordResetController::class, 'reset'])->name('password.update');
+        Route::post('reset-password', [PasswordResetController::class, 'reset'])->middleware('throttle:5,1')->name('password.update');
     });
 
     Route::middleware(['auth:organizer', 'organizer.active'])->group(function () {
@@ -35,7 +35,7 @@ Route::prefix('organizer')->name('organizer.')->group(function () {
         Route::get('tickets', [TicketController::class, 'index'])->name('tickets.index');
 
         Route::get('scanner', [ScannerController::class, 'index'])->name('scanner');
-        Route::post('scanner/verify', [ScannerController::class, 'verify'])->name('scanner.verify');
-        Route::post('scanner/check-in/{ticket:ticket_number}', [ScannerController::class, 'checkIn'])->name('scanner.checkin');
+        Route::post('scanner/verify', [ScannerController::class, 'verify'])->middleware('throttle:60,1')->name('scanner.verify');
+        Route::post('scanner/check-in/{ticket:ticket_number}', [ScannerController::class, 'checkIn'])->middleware('throttle:60,1')->name('scanner.checkin');
     });
 });

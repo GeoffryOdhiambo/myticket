@@ -14,10 +14,10 @@ Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event:slug}', [EventController::class, 'show'])->name('events.show');
 
 Route::get('/checkout/{event:slug}', [CheckoutController::class, 'create'])->name('checkout.create');
-Route::post('/checkout/{event:slug}', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::post('/checkout/{event:slug}', [CheckoutController::class, 'store'])->middleware('throttle:10,1')->name('checkout.store');
 Route::get('/checkout/{order:order_number}/pending', [CheckoutController::class, 'pending'])->name('checkout.pending');
-Route::get('/checkout/{order:order_number}/status', [CheckoutController::class, 'status'])->name('checkout.status');
-Route::post('/checkout/{order:order_number}/simulate-payment', [CheckoutController::class, 'simulate'])->name('checkout.simulate');
+Route::get('/checkout/{order:order_number}/status', [CheckoutController::class, 'status'])->middleware('throttle:30,1')->name('checkout.status');
+Route::post('/checkout/{order:order_number}/simulate-payment', [CheckoutController::class, 'simulate'])->middleware('throttle:10,1')->name('checkout.simulate');
 
 Route::post('/payments/mpesa/callback', MpesaCallbackController::class)
     ->name('payments.mpesa.callback')
