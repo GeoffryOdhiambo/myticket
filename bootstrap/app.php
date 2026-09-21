@@ -20,6 +20,18 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'organizer.active' => EnsureOrganizerIsActive::class,
         ]);
+
+        $middleware->redirectGuestsTo(function ($request) {
+            if ($request->is('organizer') || $request->is('organizer/*')) {
+                return route('organizer.login');
+            }
+
+            if ($request->is('admin') || $request->is('admin/*')) {
+                return route('admin.login');
+            }
+
+            return route('home');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
