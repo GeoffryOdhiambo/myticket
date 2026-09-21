@@ -19,7 +19,7 @@ class EventController extends Controller
     public function index(Request $request): View
     {
         $events = Event::with('organizer', 'category')
-            ->when($request->filled('q'), fn ($q) => $q->where('name', 'like', '%' . $request->string('q') . '%'))
+            ->when($request->filled('q'), fn ($q) => $q->where('name', 'like', '%'.$request->string('q').'%'))
             ->when($request->filled('organizer'), fn ($q) => $q->where('organizer_id', $request->integer('organizer')))
             ->when($request->filled('status'), fn ($q) => $q->where('status', $request->string('status')))
             ->latest()

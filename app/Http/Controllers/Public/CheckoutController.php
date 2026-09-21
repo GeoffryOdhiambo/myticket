@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Event;
 use App\Models\Order;
-use App\Models\Setting;
 use App\Services\Payments\PaymentManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
@@ -18,7 +18,7 @@ use Throwable;
 
 class CheckoutController extends Controller
 {
-    public function create(Request $request, Event $event): View|\Illuminate\Http\Response
+    public function create(Request $request, Event $event): View|Response
     {
         if (! $event->isPublished()) {
             return response()->view('events.unavailable', [], 404);

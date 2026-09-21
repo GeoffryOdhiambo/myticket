@@ -50,7 +50,7 @@ class Ticket extends Model
     public static function generateTicketNumber(): string
     {
         do {
-            $number = 'TIKO-' . strtoupper(Str::random(8));
+            $number = 'TIKO-'.strtoupper(Str::random(8));
         } while (static::where('ticket_number', $number)->exists());
 
         return $number;

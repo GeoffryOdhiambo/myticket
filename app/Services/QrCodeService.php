@@ -17,7 +17,7 @@ class QrCodeService
     {
         $signature = hash_hmac('sha256', $ticket->uuid, config('app.key'));
 
-        return base64_encode($ticket->uuid . '.' . $signature);
+        return base64_encode($ticket->uuid.'.'.$signature);
     }
 
     /**
@@ -44,7 +44,7 @@ class QrCodeService
 
     public function dataUri(Ticket $ticket): string
     {
-        $result = (new Builder())->build(
+        $result = (new Builder)->build(
             data: $this->signedPayload($ticket),
             size: 320,
             margin: 12,

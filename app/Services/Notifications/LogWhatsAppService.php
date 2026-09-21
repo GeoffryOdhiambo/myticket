@@ -19,7 +19,7 @@ class LogWhatsAppService implements WhatsAppServiceInterface
         Log::info('[WhatsApp] Ticket confirmation', [
             'to' => $order->customer_whatsapp,
             'message' => "Your ticket for {$order->event->name} has been confirmed. "
-                . "Order reference: {$order->order_number}. {$ticketCount} ticket(s) attached.",
+                ."Order reference: {$order->order_number}. {$ticketCount} ticket(s) attached.",
         ]);
     }
 }

@@ -7,9 +7,7 @@ use Illuminate\Contracts\Foundation\Application;
 
 class PaymentManager
 {
-    public function __construct(protected Application $app)
-    {
-    }
+    public function __construct(protected Application $app) {}
 
     /**
      * Resolve a payment driver. Defaults to the platform's configured

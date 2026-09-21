@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 abstract class AbstractPaymentService implements PaymentServiceInterface
 {
-    public function __construct(protected TicketService $tickets)
-    {
-    }
+    public function __construct(protected TicketService $tickets) {}
 
     /**
      * Mark a payment (and its order) as paid and generate tickets.

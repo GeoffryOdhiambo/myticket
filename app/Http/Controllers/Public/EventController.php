@@ -15,9 +15,9 @@ class EventController extends Controller
     {
         $events = Event::published()->upcoming()
             ->with(['category', 'ticketTypes'])
-            ->when($request->filled('q'), fn ($query) => $query->where('name', 'like', '%' . $request->string('q') . '%'))
+            ->when($request->filled('q'), fn ($query) => $query->where('name', 'like', '%'.$request->string('q').'%'))
             ->when($request->filled('category'), fn ($query) => $query->whereHas('category', fn ($q) => $q->where('slug', $request->string('category'))))
-            ->when($request->filled('location'), fn ($query) => $query->where('location', 'like', '%' . $request->string('location') . '%'))
+            ->when($request->filled('location'), fn ($query) => $query->where('location', 'like', '%'.$request->string('location').'%'))
             ->when($request->filled('date'), fn ($query) => $query->whereDate('event_date', $request->date('date')))
             ->orderBy('event_date')
             ->paginate(12)

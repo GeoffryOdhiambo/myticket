@@ -60,6 +60,6 @@ class EventSeeder extends Seeder
         ];
 
         return ($intros[$category] ?? "{$name} is one of Tiko's most anticipated events.")
-            . ' Doors open early, so grab your ticket in advance and secure your spot.';
+            .' Doors open early, so grab your ticket in advance and secure your spot.';
     }
 }

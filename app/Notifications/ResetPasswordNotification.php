@@ -10,8 +10,7 @@ class ResetPasswordNotification extends Notification
     public function __construct(
         public string $token,
         public string $routeName
-    ) {
-    }
+    ) {}
 
     public function via(object $notifiable): array
     {

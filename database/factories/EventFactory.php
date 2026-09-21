@@ -78,7 +78,7 @@ class EventFactory extends Factory
             'start_time' => sprintf('%02d:00:00', $start),
             'end_time' => sprintf('%02d:00:00', min($start + fake()->numberBetween(2, 5), 23)),
             'contact_email' => fake()->companyEmail(),
-            'contact_phone' => '+2547' . fake()->numerify('########'),
+            'contact_phone' => '+2547'.fake()->numerify('########'),
             'status' => 'published',
         ];
     }

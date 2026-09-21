@@ -27,7 +27,7 @@ class OrderSeeder extends Seeder
                 $order = Order::create([
                     'event_id' => $event->id,
                     'customer_name' => fake()->name(),
-                    'customer_whatsapp' => '+2547' . fake()->numerify('########'),
+                    'customer_whatsapp' => '+2547'.fake()->numerify('########'),
                     'customer_email' => fake()->safeEmail(),
                     'subtotal' => $subtotal,
                     'total' => $subtotal,

@@ -10,9 +10,7 @@ use Illuminate\Notifications\Notification;
 
 class TicketPurchased extends Notification
 {
-    public function __construct(public Order $order)
-    {
-    }
+    public function __construct(public Order $order) {}
 
     public function via(object $notifiable): array
     {

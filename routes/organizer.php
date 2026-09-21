@@ -5,8 +5,8 @@ use App\Http\Controllers\Organizer\Auth\PasswordResetController;
 use App\Http\Controllers\Organizer\DashboardController;
 use App\Http\Controllers\Organizer\EventController;
 use App\Http\Controllers\Organizer\ScannerController;
-use App\Http\Controllers\Organizer\TicketTypeController;
 use App\Http\Controllers\Organizer\TicketController;
+use App\Http\Controllers\Organizer\TicketTypeController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('organizer')->name('organizer.')->group(function () {

@@ -12,9 +12,7 @@ class SendTicketNotifications implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public int $orderId)
-    {
-    }
+    public function __construct(public int $orderId) {}
 
     public function handle(WhatsAppServiceInterface $whatsApp): void
     {

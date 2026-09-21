@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class Event extends Model
@@ -58,7 +59,7 @@ class Event extends Model
         $i = 1;
 
         while (static::where('slug', $slug)->exists()) {
-            $slug = "{$base}-" . ++$i;
+            $slug = "{$base}-".++$i;
         }
 
         return $slug;
@@ -84,7 +85,7 @@ class Event extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function ticketsQuery(): \Illuminate\Database\Eloquent\Builder
+    public function ticketsQuery(): Builder
     {
         return Ticket::whereHas('orderItem.order', fn (Builder $query) => $query->where('event_id', $this->id));
     }
@@ -113,6 +114,6 @@ class Event extends Model
 
     public function getDateTimeLabelAttribute(): string
     {
-        return $this->event_date->format('D, d M Y') . ' · ' . \Illuminate\Support\Carbon::parse($this->start_time)->format('g:i A');
+        return $this->event_date->format('D, d M Y').' · '.Carbon::parse($this->start_time)->format('g:i A');
     }
 }

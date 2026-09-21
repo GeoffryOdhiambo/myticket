@@ -12,7 +12,7 @@ class OrderFactory extends Factory
         return [
             'event_id' => Event::factory(),
             'customer_name' => fake()->name(),
-            'customer_whatsapp' => '+2547' . fake()->numerify('########'),
+            'customer_whatsapp' => '+2547'.fake()->numerify('########'),
             'customer_email' => fake()->safeEmail(),
             'subtotal' => 0,
             'total' => 0,

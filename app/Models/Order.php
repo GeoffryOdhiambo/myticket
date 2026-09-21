@@ -52,7 +52,7 @@ class Order extends Model
     public static function generateOrderNumber(): string
     {
         do {
-            $number = 'TIKO-ORD-' . strtoupper(Str::random(6));
+            $number = 'TIKO-ORD-'.strtoupper(Str::random(6));
         } while (static::where('order_number', $number)->exists());
 
         return $number;

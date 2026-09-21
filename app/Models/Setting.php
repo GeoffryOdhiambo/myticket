@@ -48,7 +48,7 @@ class Setting extends Model
 
     public function formatPrice(int $amount): string
     {
-        return $this->currency . ' ' . number_format($amount);
+        return $this->currency.' '.number_format($amount);
     }
 
     public function platformFee(int $amount): int

@@ -35,7 +35,7 @@ class MpesaPaymentService extends AbstractPaymentService
     {
         $shortcode = config('services.mpesa.shortcode');
         $timestamp = now()->format('YmdHis');
-        $password = base64_encode($shortcode . config('services.mpesa.passkey') . $timestamp);
+        $password = base64_encode($shortcode.config('services.mpesa.passkey').$timestamp);
         $phone = $this->normalizePhone($order->customer_whatsapp);
 
         $response = Http::withToken($this->accessToken())
@@ -99,7 +99,7 @@ class MpesaPaymentService extends AbstractPaymentService
         $digits = preg_replace('/\D/', '', $phone);
 
         if (str_starts_with($digits, '0')) {
-            $digits = '254' . substr($digits, 1);
+            $digits = '254'.substr($digits, 1);
         }
 
         return $digits;

@@ -31,6 +31,6 @@ class ManualPaymentService extends AbstractPaymentService
             return;
         }
 
-        $this->confirmPayment($payment, 'MANUAL-' . strtoupper(uniqid()));
+        $this->confirmPayment($payment, 'MANUAL-'.strtoupper(uniqid()));
     }
 }

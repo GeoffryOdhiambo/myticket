@@ -15,9 +15,9 @@ class OrganizerFactory extends Factory
         return [
             'name' => fake()->name(),
             'business_name' => $business,
-            'email' => Str::slug($business) . '@' . fake()->safeEmailDomain(),
+            'email' => Str::slug($business).'@'.fake()->safeEmailDomain(),
             'password' => Hash::make('password'),
-            'phone' => '+2547' . fake()->numerify('########'),
+            'phone' => '+2547'.fake()->numerify('########'),
             'status' => 'active',
         ];
     }
