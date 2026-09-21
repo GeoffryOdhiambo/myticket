@@ -5,6 +5,7 @@
     'value' => null,
     'required' => false,
     'placeholder' => null,
+    'hint' => null,
 ])
 
 <div>
@@ -27,6 +28,10 @@
             <option value="{{ $optValue }}" @selected((string) old($name, $value) === (string) $optValue)>{{ $optLabel }}</option>
         @endforeach
     </select>
+
+    @if($hint && !$errors->has($name))
+        <p class="mt-1.5 text-xs text-neutral-500">{{ $hint }}</p>
+    @endif
 
     @error($name)
         <p class="mt-1.5 text-xs font-medium text-red-600">{{ $message }}</p>
