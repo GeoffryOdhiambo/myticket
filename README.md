@@ -62,7 +62,18 @@ The active payment driver is set in **Admin → Settings** (`payment_driver`, de
 ## Notifications
 
 - **Email** ships fully working (`MAIL_MAILER=log` by default, so messages land in `storage/logs/laravel.log`
-  during development — set real SMTP credentials for production).
+  during development). The `TicketPurchased` notification (`app/Notifications/TicketPurchased.php`) sends the
+  confirmation with each ticket's PDF attached — no code changes are needed to switch providers, only `.env`.
+  - **Resend** — the `resend/resend-php` SDK is already installed and Laravel's `resend` mailer is
+    preconfigured. To go live: create an API key and verify a sending domain at
+    [resend.com](https://resend.com), then set in `.env`:
+    ```
+    MAIL_MAILER=resend
+    RESEND_API_KEY=re_your_key_here
+    MAIL_FROM_ADDRESS=tickets@yourdomain.com   # must be on the verified domain
+    ```
+  - Any other provider Laravel supports out of the box (SMTP, SES, Postmark, Mailgun) works the same way —
+    just set the matching `MAIL_*` variables.
 - **WhatsApp** uses a `WhatsAppServiceInterface` with a `LogWhatsAppService` default driver (logs what
   would be sent). Swap the binding in `AppServiceProvider` for a real provider (Twilio, Meta Cloud API, etc.)
   when one is chosen.
