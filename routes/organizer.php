@@ -27,6 +27,7 @@ Route::prefix('organizer')->name('organizer.')->group(function () {
         Route::resource('events', EventController::class);
         Route::post('events/{event}/publish', [EventController::class, 'publish'])->name('events.publish');
         Route::post('events/{event}/unpublish', [EventController::class, 'unpublish'])->name('events.unpublish');
+        Route::get('events/{event}/attendees', [EventController::class, 'downloadAttendees'])->name('events.attendees');
 
         Route::resource('events.ticket-types', TicketTypeController::class)
             ->shallow()

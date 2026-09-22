@@ -11,10 +11,13 @@ use App\Models\EventCategory;
 use App\Models\Order;
 use App\Models\Setting;
 use App\Models\Ticket;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -127,5 +130,29 @@ class EventController extends Controller
         $event->update(['status' => 'unpublished']);
 
         return back()->with('success', 'Event unpublished.');
+    }
+
+    /**
+     * A printable attendee list (ticket number, guest name, ticket type,
+     * phone, a checkbox to tick manually) so entry staff have a backup
+     * if QR scanning fails at the door.
+     */
+    public function downloadAttendees(Event $event): Response
+    {
+        $this->ensureOwnsEvent($event);
+
+        $tickets = Ticket::query()
+            ->whereHas('orderItem.order', fn ($q) => $q->where('event_id', $event->id)->where('status', 'paid'))
+            ->with(['orderItem.order', 'orderItem.ticketType'])
+            ->get()
+            ->sortBy('ticket_number', SORT_NATURAL)
+            ->values();
+
+        $pdf = Pdf::loadView('organizer.events.attendees-pdf', [
+            'event' => $event,
+            'tickets' => $tickets,
+        ])->setPaper('a4', 'portrait');
+
+        return $pdf->download(Str::slug($event->name).'-attendee-list.pdf');
     }
 }

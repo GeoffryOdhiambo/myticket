@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Jobs\SendTicketNotifications;
+use App\Models\Event;
 use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\TicketType;
@@ -25,6 +26,8 @@ class TicketService
                 return collect();
             }
 
+            /** @var Event $event */
+            $event = Event::whereKey($order->event_id)->lockForUpdate()->first();
             $tickets = collect();
 
             foreach ($order->items()->with('ticketType')->get() as $item) {
@@ -32,7 +35,11 @@ class TicketService
                 $ticketType = TicketType::whereKey($item->ticket_type_id)->lockForUpdate()->first();
 
                 for ($i = 0; $i < $item->quantity; $i++) {
-                    $tickets->push($item->tickets()->create([]));
+                    $event->increment('ticket_sequence');
+
+                    $tickets->push($item->tickets()->create([
+                        'ticket_number' => "TIKO-{$event->ticket_prefix}".str_pad((string) $event->ticket_sequence, 3, '0', STR_PAD_LEFT),
+                    ]));
                 }
 
                 $ticketType->increment('quantity_sold', $item->quantity);

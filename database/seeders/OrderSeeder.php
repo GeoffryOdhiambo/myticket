@@ -52,9 +52,11 @@ class OrderSeeder extends Seeder
 
                 for ($t = 0; $t < $quantity; $t++) {
                     $checkedIn = fake()->boolean(30);
+                    $event->increment('ticket_sequence');
 
                     Ticket::create([
                         'order_item_id' => $item->id,
+                        'ticket_number' => "TIKO-{$event->ticket_prefix}".str_pad((string) $event->ticket_sequence, 3, '0', STR_PAD_LEFT),
                         'checked_in' => $checkedIn,
                         'checked_in_at' => $checkedIn ? now()->subDays(fake()->numberBetween(0, 3)) : null,
                         'checked_in_by' => $checkedIn ? $event->organizer->name : null,

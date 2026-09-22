@@ -19,6 +19,8 @@ class Event extends Model
         'category_id',
         'name',
         'slug',
+        'ticket_prefix',
+        'ticket_sequence',
         'description',
         'image_url',
         'venue',
@@ -49,6 +51,10 @@ class Event extends Model
             if (empty($event->slug)) {
                 $event->slug = static::uniqueSlug($event->name);
             }
+
+            if (empty($event->ticket_prefix)) {
+                $event->ticket_prefix = static::generateTicketPrefix($event->name);
+            }
         });
     }
 
@@ -63,6 +69,31 @@ class Event extends Model
         }
 
         return $slug;
+    }
+
+    /**
+     * A short, human-scannable code unique per event (e.g. "NL" for
+     * "Nairobi Live Sessions") used as the ticket number prefix, so
+     * printed attendee lists sort/scan cleanly at the door.
+     */
+    public static function generateTicketPrefix(string $name): string
+    {
+        $words = array_values(array_filter(preg_split('/\s+/', preg_replace('/[^A-Za-z\s]/', '', $name))));
+
+        $base = strtoupper(substr($words[0] ?? 'TK', 0, 1).substr($words[1] ?? $words[0] ?? 'TK', 0, 1));
+        $base = str_pad(substr($base, 0, 2), 2, 'X');
+
+        $prefix = $base;
+        $attempt = 1;
+
+        while (static::where('ticket_prefix', $prefix)->exists()) {
+            $attempt++;
+            $prefix = $attempt <= 9
+                ? substr($base, 0, 1).$attempt
+                : strtoupper(Str::random(2));
+        }
+
+        return $prefix;
     }
 
     public function organizer(): BelongsTo
