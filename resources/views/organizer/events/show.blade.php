@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
             <div class="flex items-center gap-2">
-                <h1 class="text-2xl font-extrabold text-neutral-900">{{ $event->name }}</h1>
+                <h1 class="text-xl font-extrabold text-neutral-900 sm:text-2xl">{{ $event->name }}</h1>
                 <x-badge :color="match($event->status) { 'published' => 'success', 'draft' => 'neutral', 'suspended' => 'danger', default => 'warning' }">
                     {{ ucfirst($event->status) }}
                 </x-badge>
@@ -35,16 +35,16 @@
         </div>
     </div>
 
-    <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <div class="mt-6 grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
         <x-stat-card icon="ticket" label="Tickets Sold" :value="$ticketsSold" />
         <x-stat-card icon="banknotes" label="Gross Sales" :value="$settings->formatPrice($grossSales)" />
         <x-stat-card icon="receipt-percent" label="Platform Fee" :value="$settings->formatPrice($platformFee)" accent="neutral" />
         <x-stat-card icon="wallet" label="Your Earnings" :value="$settings->formatPrice($earnings)" accent="dark" />
     </div>
 
-    <div class="mt-8">
+    <div class="mt-6 sm:mt-8">
         <div class="flex items-center justify-between">
-            <h2 class="text-lg font-bold text-neutral-900">Ticket Types</h2>
+            <h2 class="text-base font-bold text-neutral-900 sm:text-lg">Ticket Types</h2>
             <x-button href="{{ route('organizer.events.ticket-types.create', $event) }}" size="sm">
                 <x-heroicon-o-plus class="h-4 w-4" /> Add Ticket Type
             </x-button>
@@ -88,8 +88,8 @@
         </x-card>
     </div>
 
-    <div class="mt-8">
-        <h2 class="text-lg font-bold text-neutral-900">About</h2>
+    <div class="mt-6 sm:mt-8">
+        <h2 class="text-base font-bold text-neutral-900 sm:text-lg">About</h2>
         <x-card class="mt-4">
             <p class="whitespace-pre-line text-sm leading-relaxed text-neutral-600">{{ $event->description }}</p>
         </x-card>

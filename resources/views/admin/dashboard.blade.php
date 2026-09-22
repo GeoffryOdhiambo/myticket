@@ -1,5 +1,5 @@
 <x-layouts.admin title="Dashboard" heading="Super Admin Dashboard">
-    <div class="grid grid-cols-2 gap-4 lg:grid-cols-3">
+    <div class="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-3">
         <x-stat-card icon="building-storefront" label="Total Organizers" :value="$totalOrganizers" />
         <x-stat-card icon="calendar-days" label="Total Events" :value="$totalEvents" />
         <x-stat-card icon="check-circle" label="Active Events" :value="$activeEvents" accent="success" />
@@ -8,9 +8,9 @@
         <x-stat-card icon="chart-bar" label="Platform Revenue" :value="\App\Models\Setting::current()->formatPrice($platformRevenue)" accent="dark" />
     </div>
 
-    <div class="mt-8">
+    <div class="mt-6 sm:mt-8">
         <div class="flex items-center justify-between">
-            <h2 class="text-lg font-bold text-neutral-900">Recent Events</h2>
+            <h2 class="text-base font-bold text-neutral-900 sm:text-lg">Recent Events</h2>
             <a href="{{ route('admin.events.index') }}" class="text-sm font-semibold text-brand hover:text-brand-dark">View all</a>
         </div>
 

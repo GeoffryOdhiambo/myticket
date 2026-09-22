@@ -9,12 +9,12 @@
     ];
 @endphp
 
-<div {{ $attributes->merge(['class' => 'rounded-2xl border border-neutral-100 bg-white p-5 shadow-sm']) }}>
-    <div class="flex items-center gap-3">
-        <span class="flex h-10 w-10 items-center justify-center rounded-xl {{ $accents[$accent] ?? $accents['brand'] }}">
-            <x-dynamic-component :component="'heroicon-o-' . $icon" class="h-5 w-5" />
+<div {{ $attributes->merge(['class' => 'rounded-xl border border-neutral-100 bg-white p-3 shadow-sm sm:rounded-2xl sm:p-5']) }}>
+    <div class="flex items-center gap-2 sm:gap-3">
+        <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg sm:h-10 sm:w-10 sm:rounded-xl {{ $accents[$accent] ?? $accents['brand'] }}">
+            <x-dynamic-component :component="'heroicon-o-' . $icon" class="h-3.5 w-3.5 sm:h-5 sm:w-5" />
         </span>
-        <p class="text-sm font-medium text-neutral-500">{{ $label }}</p>
+        <p class="truncate text-xs font-medium text-neutral-500 sm:text-sm">{{ $label }}</p>
     </div>
-    <p class="mt-4 text-2xl font-extrabold text-neutral-900">{{ $value }}</p>
+    <p class="mt-2 text-lg font-extrabold text-neutral-900 sm:mt-4 sm:text-2xl">{{ $value }}</p>
 </div>

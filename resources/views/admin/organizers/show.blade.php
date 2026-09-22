@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
             <div class="flex items-center gap-2">
-                <h1 class="text-2xl font-extrabold text-neutral-900">{{ $organizer->business_name }}</h1>
+                <h1 class="text-xl font-extrabold text-neutral-900 sm:text-2xl">{{ $organizer->business_name }}</h1>
                 <x-badge :color="$organizer->status === 'active' ? 'success' : 'danger'">{{ ucfirst($organizer->status) }}</x-badge>
             </div>
             <p class="mt-1 text-sm text-neutral-500">{{ $organizer->name }} · {{ $organizer->email }} · {{ $organizer->phone }}</p>
@@ -30,14 +30,14 @@
         </div>
     </div>
 
-    <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-3">
+    <div class="mt-6 grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-3">
         <x-stat-card icon="calendar-days" label="Total Events" :value="$events->count()" />
         <x-stat-card icon="ticket" label="Tickets Sold" :value="$ticketsSold" />
         <x-stat-card icon="banknotes" label="Total Sales" :value="$settings->formatPrice($totalSales)" accent="dark" />
     </div>
 
-    <div class="mt-8">
-        <h2 class="text-lg font-bold text-neutral-900">Events</h2>
+    <div class="mt-6 sm:mt-8">
+        <h2 class="text-base font-bold text-neutral-900 sm:text-lg">Events</h2>
         <x-card padded="{{ false }}" class="mt-4 overflow-hidden">
             @if($events->isEmpty())
                 <x-empty-state icon="calendar-days" title="This organizer has not created any events yet." />

@@ -54,19 +54,19 @@
 
         <!-- Main content -->
         <div class="min-w-0 flex-1 pb-20 lg:pb-0">
-            <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-10">
+            <div class="mx-auto max-w-6xl px-3.5 py-4 sm:px-6 sm:py-8 lg:px-10">
                 @if($heading)
-                    <h1 class="text-2xl font-extrabold text-neutral-900">{{ $heading }}</h1>
+                    <h1 class="text-lg font-extrabold text-neutral-900 sm:text-2xl">{{ $heading }}</h1>
                 @endif
 
                 @if(session('success'))
-                    <x-alert type="success" class="mt-4">{{ session('success') }}</x-alert>
+                    <x-alert type="success" class="mt-3 sm:mt-4">{{ session('success') }}</x-alert>
                 @endif
                 @if(session('error'))
-                    <x-alert type="error" class="mt-4">{{ session('error') }}</x-alert>
+                    <x-alert type="error" class="mt-3 sm:mt-4">{{ session('error') }}</x-alert>
                 @endif
 
-                <div class="{{ $heading ? 'mt-6' : '' }}">
+                <div class="{{ $heading ? 'mt-4 sm:mt-6' : '' }}">
                     {{ $slot }}
                 </div>
             </div>

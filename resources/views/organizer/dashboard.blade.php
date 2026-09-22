@@ -1,14 +1,14 @@
 <x-layouts.organizer title="Dashboard" heading="Dashboard">
-    <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <div class="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
         <x-stat-card icon="calendar-days" label="Total Events" :value="$totalEvents" />
         <x-stat-card icon="check-circle" label="Active Events" :value="$activeEvents" accent="success" />
         <x-stat-card icon="ticket" label="Tickets Sold" :value="$ticketsSold" />
         <x-stat-card icon="banknotes" label="Total Revenue" :value="\App\Models\Setting::current()->formatPrice($totalRevenue)" accent="dark" />
     </div>
 
-    <div class="mt-8">
+    <div class="mt-6 sm:mt-8">
         <div class="flex items-center justify-between">
-            <h2 class="text-lg font-bold text-neutral-900">Recent Events</h2>
+            <h2 class="text-base font-bold text-neutral-900 sm:text-lg">Recent Events</h2>
             <x-button href="{{ route('organizer.events.create') }}" size="sm">
                 <x-heroicon-o-plus class="h-4 w-4" /> New Event
             </x-button>

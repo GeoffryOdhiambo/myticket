@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
             <div class="flex items-center gap-2">
-                <h1 class="text-2xl font-extrabold text-neutral-900">{{ $event->name }}</h1>
+                <h1 class="text-xl font-extrabold text-neutral-900 sm:text-2xl">{{ $event->name }}</h1>
                 <x-badge :color="match($event->status) { 'published' => 'success', 'draft' => 'neutral', 'suspended' => 'danger', default => 'warning' }">
                     {{ ucfirst($event->status) }}
                 </x-badge>
@@ -41,15 +41,15 @@
         </div>
     </div>
 
-    <div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-3">
+    <div class="mt-6 grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-3">
         <x-stat-card icon="ticket" label="Tickets Sold" :value="$ticketsSold" />
         <x-stat-card icon="banknotes" label="Revenue" :value="$settings->formatPrice($revenue)" accent="dark" />
         <x-stat-card icon="receipt-percent" label="Platform Fee" :value="$settings->formatPrice($settings->platformFee($revenue))" accent="neutral" />
     </div>
 
-    <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
+    <div class="mt-6 grid grid-cols-1 gap-6 sm:mt-8 sm:gap-8 lg:grid-cols-3">
         <div class="lg:col-span-2">
-            <h2 class="text-lg font-bold text-neutral-900">About</h2>
+            <h2 class="text-base font-bold text-neutral-900 sm:text-lg">About</h2>
             <x-card class="mt-4">
                 <img src="{{ $event->image_url }}" alt="{{ $event->name }}" class="mb-4 h-48 w-full rounded-xl object-cover">
                 <p class="whitespace-pre-line text-sm leading-relaxed text-neutral-600">{{ $event->description }}</p>
@@ -57,7 +57,7 @@
         </div>
 
         <div>
-            <h2 class="text-lg font-bold text-neutral-900">Ticket Types</h2>
+            <h2 class="text-base font-bold text-neutral-900 sm:text-lg">Ticket Types</h2>
             <x-card class="mt-4 space-y-3" padded="{{ true }}">
                 @forelse($event->ticketTypes as $type)
                     <div class="flex items-center justify-between border-b border-neutral-100 pb-3 last:border-0 last:pb-0">
