@@ -3,9 +3,13 @@
 <x-layouts.base :title="$title" :description="$description">
     @include('partials.nav')
 
-    <main>
+    <main class="pb-20 lg:pb-0">
         {{ $slot }}
     </main>
 
-    @include('partials.footer')
+    <div class="hidden lg:block">
+        @include('partials.footer')
+    </div>
+
+    @include('partials.bottom-nav')
 </x-layouts.base>

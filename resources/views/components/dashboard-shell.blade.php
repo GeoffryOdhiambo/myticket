@@ -1,29 +1,30 @@
 @props(['title' => null, 'portal', 'navItems', 'userName', 'logoutRoute', 'heading' => null])
 
 <x-layouts.base :title="$title">
-    <div x-data="{ sidebarOpen: false }" class="min-h-screen bg-neutral-50 md:flex">
-        <!-- Mobile top bar -->
-        <div class="flex items-center justify-between border-b border-neutral-800 bg-neutral-900 px-4 py-3 md:hidden">
+    <div class="min-h-screen bg-neutral-50 lg:flex">
+        <!-- Mobile / tablet top bar -->
+        <div
+            class="flex items-center justify-between border-b border-neutral-800 bg-neutral-900 px-4 py-3 lg:hidden"
+            style="padding-top: max(0.75rem, env(safe-area-inset-top))"
+        >
             <div class="flex items-center gap-2">
                 <x-logo dark size="text-lg" />
                 <span class="text-xs font-medium text-neutral-400">{{ $portal }}</span>
             </div>
-            <button @click="sidebarOpen = !sidebarOpen" class="flex h-9 w-9 items-center justify-center rounded-lg text-white hover:bg-neutral-800" aria-label="Toggle menu">
-                <x-heroicon-o-bars-3 class="h-6 w-6" />
-            </button>
+            <form method="POST" action="{{ $logoutRoute }}">
+                @csrf
+                <button type="submit" class="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-300 hover:bg-neutral-800 hover:text-white" aria-label="Logout">
+                    <x-heroicon-o-arrow-left-start-on-rectangle class="h-5 w-5" />
+                </button>
+            </form>
         </div>
 
-        <!-- Sidebar -->
-        <aside
-            x-show="sidebarOpen || window.innerWidth >= 768"
-            x-transition
-            class="w-full shrink-0 bg-neutral-900 md:block md:w-64 md:min-h-screen"
-            :class="sidebarOpen ? 'block' : 'hidden md:block'"
-        >
-            <div class="hidden items-center gap-2 px-6 py-6 md:flex">
+        <!-- Sidebar (desktop only) -->
+        <aside class="hidden shrink-0 bg-neutral-900 lg:block lg:w-64 lg:min-h-screen">
+            <div class="flex items-center gap-2 px-6 py-6">
                 <x-logo dark />
             </div>
-            <p class="hidden px-6 text-xs font-medium uppercase tracking-wide text-neutral-500 md:block">{{ $portal }}</p>
+            <p class="px-6 text-xs font-medium uppercase tracking-wide text-neutral-500">{{ $portal }}</p>
 
             <nav class="mt-3 flex flex-col gap-1 px-3 pb-6">
                 @foreach($navItems as $item)
@@ -52,7 +53,7 @@
         </aside>
 
         <!-- Main content -->
-        <div class="min-w-0 flex-1">
+        <div class="min-w-0 flex-1 pb-20 lg:pb-0">
             <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-10">
                 @if($heading)
                     <h1 class="text-2xl font-extrabold text-neutral-900">{{ $heading }}</h1>
@@ -71,4 +72,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Bottom tab bar (mobile / tablet only) -->
+    <nav
+        class="fixed inset-x-0 bottom-0 z-40 border-t border-neutral-100 bg-white/95 backdrop-blur lg:hidden"
+        style="padding-bottom: env(safe-area-inset-bottom)"
+    >
+        <div class="grid" style="grid-template-columns: repeat({{ count($navItems) }}, minmax(0, 1fr))">
+            @foreach($navItems as $item)
+                <a
+                    href="{{ $item['url'] }}"
+                    class="flex flex-col items-center gap-1 py-2.5 text-[11px] font-semibold {{ $item['active'] ? 'text-brand' : 'text-neutral-400' }}"
+                >
+                    <x-dynamic-component :component="'heroicon-' . ($item['active'] ? 's' : 'o') . '-' . $item['icon']" class="h-6 w-6" />
+                    {{ $item['label'] }}
+                </a>
+            @endforeach
+        </div>
+    </nav>
 </x-layouts.base>
