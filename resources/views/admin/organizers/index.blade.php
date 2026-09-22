@@ -16,23 +16,23 @@
             <table class="w-full text-left text-sm">
                 <thead class="border-b border-neutral-100 bg-neutral-50 text-xs font-semibold uppercase tracking-wide text-neutral-500">
                     <tr>
-                        <th class="px-5 py-3">Business</th>
-                        <th class="px-5 py-3">Contact</th>
-                        <th class="px-5 py-3">Events</th>
-                        <th class="px-5 py-3">Status</th>
-                        <th class="px-5 py-3"></th>
+                        <th class="px-3 py-2.5 sm:px-5 sm:py-3">Business</th>
+                        <th class="px-3 py-2.5 sm:px-5 sm:py-3">Contact</th>
+                        <th class="px-3 py-2.5 sm:px-5 sm:py-3">Events</th>
+                        <th class="px-3 py-2.5 sm:px-5 sm:py-3">Status</th>
+                        <th class="px-3 py-2.5 sm:px-5 sm:py-3"></th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-neutral-100">
                     @foreach($organizers as $organizer)
                         <tr>
-                            <td class="px-5 py-3.5 font-semibold text-neutral-900">{{ $organizer->business_name }}</td>
-                            <td class="px-5 py-3.5 text-neutral-500">{{ $organizer->name }} · {{ $organizer->email }}</td>
-                            <td class="px-5 py-3.5 text-neutral-600">{{ $organizer->events_count }}</td>
-                            <td class="px-5 py-3.5">
+                            <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-neutral-900">{{ $organizer->business_name }}</td>
+                            <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-500">{{ $organizer->name }} · {{ $organizer->email }}</td>
+                            <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $organizer->events_count }}</td>
+                            <td class="px-3 py-2.5 sm:px-5 sm:py-3.5">
                                 <x-badge :color="$organizer->status === 'active' ? 'success' : 'danger'">{{ ucfirst($organizer->status) }}</x-badge>
                             </td>
-                            <td class="px-5 py-3.5 text-right">
+                            <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-right">
                                 <a href="{{ route('admin.organizers.show', $organizer) }}" class="font-semibold text-brand hover:text-brand-dark">View</a>
                             </td>
                         </tr>

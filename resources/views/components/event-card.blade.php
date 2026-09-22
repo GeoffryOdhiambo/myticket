@@ -15,23 +15,23 @@
         @endif
     </div>
 
-    <div class="p-5">
+    <div class="p-3.5 sm:p-5">
         <p class="text-xs font-semibold uppercase tracking-wide text-brand">
             {{ $event->event_date->format('D, d M Y') }}
         </p>
-        <h3 class="mt-1.5 text-base font-bold text-neutral-900 line-clamp-1">{{ $event->name }}</h3>
+        <h3 class="mt-1 text-sm font-bold text-neutral-900 line-clamp-1 sm:mt-1.5 sm:text-base">{{ $event->name }}</h3>
 
-        <p class="mt-1.5 flex items-center gap-1.5 text-sm text-neutral-500">
-            <x-heroicon-o-map-pin class="h-4 w-4 shrink-0" />
+        <p class="mt-1 flex items-center gap-1.5 text-xs text-neutral-500 sm:mt-1.5 sm:text-sm">
+            <x-heroicon-o-map-pin class="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
             <span class="line-clamp-1">{{ $event->location }}</span>
         </p>
 
-        <div class="mt-4 flex items-center justify-between border-t border-neutral-100 pt-4">
+        <div class="mt-3 flex items-center justify-between border-t border-neutral-100 pt-3 sm:mt-4 sm:pt-4">
             <div>
-                <p class="text-[11px] font-medium uppercase tracking-wide text-neutral-400">From</p>
+                <p class="text-[10px] font-medium uppercase tracking-wide text-neutral-400 sm:text-[11px]">From</p>
                 <p class="text-sm font-extrabold text-neutral-900">{{ $event->starting_price_label }}</p>
             </div>
-            <span class="inline-flex items-center gap-1 text-sm font-semibold text-brand">
+            <span class="inline-flex items-center gap-1 text-xs font-semibold text-brand sm:text-sm">
                 View Event
                 <x-heroicon-o-arrow-right class="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </span>

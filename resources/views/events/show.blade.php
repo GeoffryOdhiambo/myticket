@@ -10,19 +10,19 @@
     </div>
 
     <div class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-10">
             <div class="lg:col-span-2">
-                <div class="-mt-16 relative">
+                <div class="-mt-12 relative sm:-mt-16">
                     @if($event->category)
                         <x-badge color="brand">{{ $event->category->name }}</x-badge>
                     @endif
-                    <h1 class="mt-3 text-2xl font-extrabold text-white sm:text-3xl" style="text-shadow: 0 2px 12px rgba(0,0,0,0.4)">
+                    <h1 class="mt-2 text-xl font-extrabold text-white sm:mt-3 sm:text-3xl" style="text-shadow: 0 2px 12px rgba(0,0,0,0.4)">
                         {{ $event->name }}
                     </h1>
                 </div>
 
-                <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                    <div class="flex items-start gap-3 rounded-2xl border border-neutral-100 bg-white p-4 shadow-sm">
+                <div class="mt-5 grid grid-cols-1 gap-2.5 sm:mt-8 sm:grid-cols-3 sm:gap-4">
+                    <div class="flex items-start gap-3 rounded-xl border border-neutral-100 bg-white p-3 shadow-sm sm:rounded-2xl sm:p-4">
                         <x-heroicon-o-calendar-days class="h-5 w-5 shrink-0 text-brand" />
                         <div>
                             <p class="text-xs font-semibold uppercase tracking-wide text-neutral-400">Date &amp; Time</p>
@@ -30,7 +30,7 @@
                             <p class="text-xs text-neutral-500">{{ \Illuminate\Support\Carbon::parse($event->start_time)->format('g:i A') }} – {{ \Illuminate\Support\Carbon::parse($event->end_time)->format('g:i A') }}</p>
                         </div>
                     </div>
-                    <div class="flex items-start gap-3 rounded-2xl border border-neutral-100 bg-white p-4 shadow-sm">
+                    <div class="flex items-start gap-3 rounded-xl border border-neutral-100 bg-white p-3 shadow-sm sm:rounded-2xl sm:p-4">
                         <x-heroicon-o-map-pin class="h-5 w-5 shrink-0 text-brand" />
                         <div>
                             <p class="text-xs font-semibold uppercase tracking-wide text-neutral-400">Venue</p>
@@ -38,7 +38,7 @@
                             <p class="text-xs text-neutral-500">{{ $event->location }}</p>
                         </div>
                     </div>
-                    <div class="flex items-start gap-3 rounded-2xl border border-neutral-100 bg-white p-4 shadow-sm">
+                    <div class="flex items-start gap-3 rounded-xl border border-neutral-100 bg-white p-3 shadow-sm sm:rounded-2xl sm:p-4">
                         <x-heroicon-o-user-circle class="h-5 w-5 shrink-0 text-brand" />
                         <div>
                             <p class="text-xs font-semibold uppercase tracking-wide text-neutral-400">Organized by</p>
@@ -47,16 +47,16 @@
                     </div>
                 </div>
 
-                <div class="mt-10">
-                    <h2 class="text-lg font-bold text-neutral-900">About This Event</h2>
-                    <p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-neutral-600">{{ $event->description }}</p>
+                <div class="mt-6 sm:mt-10">
+                    <h2 class="text-base font-bold text-neutral-900 sm:text-lg">About This Event</h2>
+                    <p class="mt-2 whitespace-pre-line text-sm leading-relaxed text-neutral-600 sm:mt-3">{{ $event->description }}</p>
                 </div>
             </div>
 
             <div class="lg:col-span-1">
                 <div class="lg:sticky lg:top-24">
                     <x-card>
-                        <h2 class="text-lg font-bold text-neutral-900">Choose Your Ticket</h2>
+                        <h2 class="text-base font-bold text-neutral-900 sm:text-lg">Choose Your Ticket</h2>
 
                         @if($isPast)
                             <p class="mt-4 text-sm text-neutral-500">This event has already taken place.</p>

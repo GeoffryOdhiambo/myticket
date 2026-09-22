@@ -1,7 +1,7 @@
 <x-layouts.app title="Terms">
-    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-16 lg:px-8">
         <p class="text-sm font-semibold uppercase tracking-wide text-brand">Legal</p>
-        <h1 class="mt-2 text-3xl font-extrabold text-neutral-900 sm:text-4xl">Terms of Service</h1>
+        <h1 class="mt-2 text-2xl font-extrabold text-neutral-900 sm:text-4xl">Terms of Service</h1>
 
         <div class="mt-8 space-y-6 text-sm leading-relaxed text-neutral-600">
             <p>

@@ -58,25 +58,25 @@
                 <table class="w-full text-left text-sm">
                     <thead class="border-b border-neutral-100 bg-neutral-50 text-xs font-semibold uppercase tracking-wide text-neutral-500">
                         <tr>
-                            <th class="px-5 py-3">Name</th>
-                            <th class="px-5 py-3">Price</th>
-                            <th class="px-5 py-3">Sold</th>
-                            <th class="px-5 py-3">Available</th>
-                            <th class="px-5 py-3">Status</th>
-                            <th class="px-5 py-3"></th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Name</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Price</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Sold</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Available</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Status</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3"></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-neutral-100">
                         @foreach($event->ticketTypes as $type)
                             <tr>
-                                <td class="px-5 py-3.5 font-semibold text-neutral-900">{{ $type->name }}</td>
-                                <td class="px-5 py-3.5 text-neutral-600">{{ $type->price_label }}</td>
-                                <td class="px-5 py-3.5 text-neutral-600">{{ $type->quantity_sold }}</td>
-                                <td class="px-5 py-3.5 text-neutral-600">{{ $type->available_quantity ?? 'Unlimited' }}</td>
-                                <td class="px-5 py-3.5">
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-neutral-900">{{ $type->name }}</td>
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $type->price_label }}</td>
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $type->quantity_sold }}</td>
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $type->available_quantity ?? 'Unlimited' }}</td>
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5">
                                     <x-badge :color="$type->status === 'active' ? 'success' : 'neutral'">{{ ucfirst($type->status) }}</x-badge>
                                 </td>
-                                <td class="px-5 py-3.5 text-right">
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-right">
                                     <a href="{{ route('organizer.ticket-types.edit', $type) }}" class="font-semibold text-brand hover:text-brand-dark">Edit</a>
                                 </td>
                             </tr>

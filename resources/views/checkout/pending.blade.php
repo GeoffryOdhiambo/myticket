@@ -4,7 +4,7 @@
 
 <x-layouts.app title="Order Status">
     <div
-        class="mx-auto max-w-xl px-4 py-16 sm:px-6 lg:px-8"
+        class="mx-auto max-w-xl px-4 py-8 sm:px-6 sm:py-16 lg:px-8"
         x-data="{ status: '{{ $order->status }}' }"
         @if($order->status === 'pending' && !$isManual)
             x-init="setInterval(() => {
@@ -17,8 +17,8 @@
         <template x-if="status === 'pending'">
             <x-card class="text-center">
                 @if($isManual)
-                    <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-light text-brand-dark">
-                        <x-heroicon-o-clock class="h-8 w-8" />
+                    <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full sm:h-16 sm:w-16 bg-brand-light text-brand-dark">
+                        <x-heroicon-o-clock class="h-7 w-7 sm:h-8 sm:w-8" />
                     </span>
                     <h1 class="mt-5 text-xl font-extrabold text-neutral-900">Awaiting Payment</h1>
                     <p class="mt-2 text-sm text-neutral-500">
@@ -30,8 +30,8 @@
                         <x-button type="submit" class="w-full" size="lg">Simulate Payment</x-button>
                     </form>
                 @else
-                    <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-light text-brand-dark animate-pulse">
-                        <x-heroicon-o-device-phone-mobile class="h-8 w-8" />
+                    <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full sm:h-16 sm:w-16 bg-brand-light text-brand-dark animate-pulse">
+                        <x-heroicon-o-device-phone-mobile class="h-7 w-7 sm:h-8 sm:w-8" />
                     </span>
                     <h1 class="mt-5 text-xl font-extrabold text-neutral-900">Check Your Phone</h1>
                     <p class="mt-2 text-sm text-neutral-500">
@@ -44,8 +44,8 @@
 
         <template x-if="status === 'paid'">
             <x-card class="text-center">
-                <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-                    <x-heroicon-o-check-circle class="h-8 w-8" />
+                <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full sm:h-16 sm:w-16 bg-emerald-50 text-emerald-600">
+                    <x-heroicon-o-check-circle class="h-7 w-7 sm:h-8 sm:w-8" />
                 </span>
                 <h1 class="mt-5 text-xl font-extrabold text-neutral-900">Payment Confirmed</h1>
                 <p class="mt-2 text-sm text-neutral-500">
@@ -67,8 +67,8 @@
 
         <template x-if="status === 'failed' || status === 'cancelled'">
             <x-card class="text-center">
-                <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50 text-red-600">
-                    <x-heroicon-o-x-circle class="h-8 w-8" />
+                <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full sm:h-16 sm:w-16 bg-red-50 text-red-600">
+                    <x-heroicon-o-x-circle class="h-7 w-7 sm:h-8 sm:w-8" />
                 </span>
                 <h1 class="mt-5 text-xl font-extrabold text-neutral-900">Payment Failed</h1>
                 <p class="mt-2 text-sm text-neutral-500">Your payment could not be completed. No charges were made.</p>

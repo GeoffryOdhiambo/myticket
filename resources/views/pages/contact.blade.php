@@ -3,14 +3,14 @@
 @endphp
 
 <x-layouts.app title="Contact">
-    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-16 lg:px-8">
         <p class="text-sm font-semibold uppercase tracking-wide text-brand">Get in Touch</p>
-        <h1 class="mt-2 text-3xl font-extrabold text-neutral-900 sm:text-4xl">We're here to help.</h1>
-        <p class="mt-4 text-base text-neutral-600">
+        <h1 class="mt-2 text-2xl font-extrabold text-neutral-900 sm:text-4xl">We're here to help.</h1>
+        <p class="mt-3 text-sm text-neutral-600 sm:mt-4 sm:text-base">
             Have a question about an order, a ticket, or hosting your event on Tiko? Reach out and our team will get back to you.
         </p>
 
-        <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        <div class="mt-6 grid gap-3 sm:mt-10 sm:grid-cols-2 sm:gap-4">
             <x-card>
                 <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-light text-brand-dark">
                     <x-heroicon-o-envelope class="h-5 w-5" />

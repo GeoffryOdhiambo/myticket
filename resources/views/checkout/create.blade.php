@@ -3,15 +3,15 @@
 @endphp
 
 <x-layouts.app title="Checkout">
-    <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-12 lg:px-8">
         <a href="{{ route('events.show', $event) }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-500 hover:text-neutral-800">
             <x-heroicon-o-arrow-left class="h-4 w-4" /> Back to event
         </a>
 
-        <h1 class="mt-4 text-2xl font-extrabold text-neutral-900">Checkout</h1>
+        <h1 class="mt-3 text-xl font-extrabold text-neutral-900 sm:mt-4 sm:text-2xl">Checkout</h1>
         <p class="mt-1 text-sm text-neutral-500">Enter your details to receive your ticket by WhatsApp and email.</p>
 
-        <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-5">
+        <div class="mt-5 grid grid-cols-1 gap-5 sm:mt-8 sm:gap-8 lg:grid-cols-5">
             <div class="lg:col-span-3">
                 <x-card>
                     <h2 class="text-base font-bold text-neutral-900">Your Details</h2>

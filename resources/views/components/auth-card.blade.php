@@ -1,11 +1,11 @@
 @props(['title', 'subtitle' => null, 'portal' => null])
 
 <x-layouts.base :title="$title">
-    <div class="flex min-h-screen items-center justify-center bg-neutral-50 px-4 py-12">
+    <div class="flex min-h-screen items-center justify-center bg-neutral-50 px-4 py-8 sm:py-12">
         <div class="w-full max-w-md">
-            <div class="mb-8 flex flex-col items-center text-center">
+            <div class="mb-6 flex flex-col items-center text-center sm:mb-8">
                 <a href="{{ route('home') }}">
-                    <x-logo size="text-3xl" />
+                    <x-logo size="text-2xl sm:text-3xl" />
                 </a>
                 @if($portal)
                     <p class="mt-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">{{ $portal }}</p>

@@ -5,7 +5,7 @@
 @endphp
 
 <x-layouts.app title="Ticket {{ $ticket->ticket_number }}">
-    <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl px-4 py-6 sm:px-6 sm:py-12 lg:px-8">
         <div class="text-center">
             @if($ticket->checked_in)
                 <x-badge color="neutral">
@@ -18,17 +18,17 @@
             @endif
         </div>
 
-        <div class="mt-6 overflow-hidden rounded-3xl border border-neutral-100 bg-white shadow-md">
-            <div class="bg-neutral-900 px-8 py-6 text-center">
+        <div class="mt-4 overflow-hidden rounded-2xl border border-neutral-100 bg-white shadow-md sm:mt-6 sm:rounded-3xl">
+            <div class="bg-neutral-900 px-5 py-5 text-center sm:px-8 sm:py-6">
                 <x-logo dark size="text-xl" />
                 <p class="mt-1 text-xs font-medium uppercase tracking-widest text-neutral-400">Digital Ticket</p>
             </div>
 
-            <div class="px-8 py-8">
+            <div class="px-5 py-6 sm:px-8 sm:py-8">
                 <p class="text-xs font-semibold uppercase tracking-wide text-brand">{{ $ticketType->name }}</p>
-                <h1 class="mt-1 text-2xl font-extrabold text-neutral-900">{{ $event->name }}</h1>
+                <h1 class="mt-1 text-xl font-extrabold text-neutral-900 sm:text-2xl">{{ $event->name }}</h1>
 
-                <div class="mt-6 grid grid-cols-2 gap-5 border-t border-dashed border-neutral-200 pt-6 text-sm sm:grid-cols-3">
+                <div class="mt-4 grid grid-cols-2 gap-4 border-t border-dashed border-neutral-200 pt-4 text-sm sm:mt-6 sm:gap-5 sm:pt-6 sm:grid-cols-3">
                     <div>
                         <p class="text-[11px] font-semibold uppercase tracking-wide text-neutral-400">Date</p>
                         <p class="mt-0.5 font-semibold text-neutral-900">{{ $event->event_date->format('d M Y') }}</p>
@@ -51,8 +51,8 @@
                     </div>
                 </div>
 
-                <div class="mt-8 flex flex-col items-center border-t border-dashed border-neutral-200 pt-8">
-                    <img src="{{ $qrDataUri }}" alt="Ticket QR code" class="h-44 w-44">
+                <div class="mt-6 flex flex-col items-center border-t border-dashed border-neutral-200 pt-6 sm:mt-8 sm:pt-8">
+                    <img src="{{ $qrDataUri }}" alt="Ticket QR code" class="h-36 w-36 sm:h-44 sm:w-44">
                     <p class="mt-3 text-xs text-neutral-400">Present this QR code at the entrance for check-in.</p>
 
                     @if($ticket->checked_in)

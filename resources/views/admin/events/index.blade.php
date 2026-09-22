@@ -36,29 +36,29 @@
                 <table class="w-full text-left text-sm">
                     <thead class="border-b border-neutral-100 bg-neutral-50 text-xs font-semibold uppercase tracking-wide text-neutral-500">
                         <tr>
-                            <th class="px-5 py-3">Event</th>
-                            <th class="px-5 py-3">Organizer</th>
-                            <th class="px-5 py-3">Date</th>
-                            <th class="px-5 py-3">Status</th>
-                            <th class="px-5 py-3">Sold</th>
-                            <th class="px-5 py-3">Revenue</th>
-                            <th class="px-5 py-3"></th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Event</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Organizer</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Date</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Status</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Sold</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Revenue</th>
+                            <th class="px-3 py-2.5 sm:px-5 sm:py-3"></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-neutral-100">
                         @foreach($events as $event)
                             <tr>
-                                <td class="px-5 py-3.5 font-semibold text-neutral-900">{{ $event->name }}</td>
-                                <td class="px-5 py-3.5 text-neutral-500">{{ $event->organizer->business_name }}</td>
-                                <td class="px-5 py-3.5 text-neutral-500">{{ $event->event_date->format('d M Y') }}</td>
-                                <td class="px-5 py-3.5">
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-neutral-900">{{ $event->name }}</td>
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-500">{{ $event->organizer->business_name }}</td>
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-500">{{ $event->event_date->format('d M Y') }}</td>
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5">
                                     <x-badge :color="match($event->status) { 'published' => 'success', 'draft' => 'neutral', 'suspended' => 'danger', default => 'warning' }">
                                         {{ ucfirst($event->status) }}
                                     </x-badge>
                                 </td>
-                                <td class="px-5 py-3.5 text-neutral-600">{{ $event->tickets_sold }}</td>
-                                <td class="px-5 py-3.5 text-neutral-600">{{ $settings->formatPrice($event->revenue) }}</td>
-                                <td class="px-5 py-3.5 text-right">
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $event->tickets_sold }}</td>
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $settings->formatPrice($event->revenue) }}</td>
+                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-right">
                                     <a href="{{ route('admin.events.show', $event) }}" class="font-semibold text-brand hover:text-brand-dark">View</a>
                                 </td>
                             </tr>

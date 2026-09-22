@@ -1,9 +1,9 @@
 <x-layouts.app title="About">
-    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-16 lg:px-8">
         <p class="text-sm font-semibold uppercase tracking-wide text-brand">About Tiko</p>
-        <h1 class="mt-2 text-3xl font-extrabold text-neutral-900 sm:text-4xl">Making event tickets simple, for everyone.</h1>
+        <h1 class="mt-2 text-2xl font-extrabold text-neutral-900 sm:text-4xl">Making event tickets simple, for everyone.</h1>
 
-        <div class="mt-8 space-y-5 text-base leading-relaxed text-neutral-600">
+        <div class="mt-5 space-y-4 text-sm leading-relaxed text-neutral-600 sm:mt-8 sm:space-y-5 sm:text-base">
             <p>
                 Tiko is an online ticketing platform built for event organizers and the people who love going to
                 events. Whether it's a concert, a party, a conference, or a festival, Tiko makes it easy to publish

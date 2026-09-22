@@ -1,21 +1,21 @@
 <x-layouts.organizer title="Scanner" heading="Ticket Scanner">
-    <div class="grid grid-cols-3 gap-3">
-        <div class="rounded-2xl border border-neutral-100 bg-white p-4 text-center shadow-sm">
-            <p class="text-xl font-extrabold text-neutral-900">{{ $sold }}</p>
+    <div class="grid grid-cols-3 gap-2.5 sm:gap-3">
+        <div class="rounded-xl border border-neutral-100 bg-white p-3 text-center shadow-sm sm:rounded-2xl sm:p-4">
+            <p class="text-lg font-extrabold text-neutral-900 sm:text-xl">{{ $sold }}</p>
             <p class="text-xs text-neutral-500">Sold</p>
         </div>
-        <div class="rounded-2xl border border-neutral-100 bg-white p-4 text-center shadow-sm">
-            <p class="text-xl font-extrabold text-emerald-600">{{ $checkedIn }}</p>
+        <div class="rounded-xl border border-neutral-100 bg-white p-3 text-center shadow-sm sm:rounded-2xl sm:p-4">
+            <p class="text-lg font-extrabold text-emerald-600 sm:text-xl">{{ $checkedIn }}</p>
             <p class="text-xs text-neutral-500">Checked In</p>
         </div>
-        <div class="rounded-2xl border border-neutral-100 bg-white p-4 text-center shadow-sm">
-            <p class="text-xl font-extrabold text-neutral-900">{{ $remaining }}</p>
+        <div class="rounded-xl border border-neutral-100 bg-white p-3 text-center shadow-sm sm:rounded-2xl sm:p-4">
+            <p class="text-lg font-extrabold text-neutral-900 sm:text-xl">{{ $remaining }}</p>
             <p class="text-xs text-neutral-500">Remaining</p>
         </div>
     </div>
 
     <div
-        class="mt-6"
+        class="mt-4 sm:mt-6"
         x-data="scannerPage(
             '{{ route('organizer.scanner.verify') }}',
             '{{ route('organizer.scanner.checkin', ['ticket' => '__TICKET__']) }}'

@@ -1,6 +1,6 @@
 @props(['icon' => 'inbox', 'title', 'description' => null])
 
-<div {{ $attributes->merge(['class' => 'flex flex-col items-center justify-center text-center py-16 px-6']) }}>
+<div {{ $attributes->merge(['class' => 'flex flex-col items-center justify-center text-center py-10 px-6 sm:py-16']) }}>
     <div class="flex h-14 w-14 items-center justify-center rounded-full bg-neutral-100 text-neutral-400">
         <x-dynamic-component :component="'heroicon-o-' . $icon" class="h-7 w-7" />
     </div>

@@ -1,10 +1,10 @@
 <x-layouts.app title="Events">
     <div class="border-b border-neutral-100 bg-neutral-50">
-        <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-            <h1 class="text-2xl font-extrabold text-neutral-900 sm:text-3xl">Explore Events</h1>
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+            <h1 class="text-xl font-extrabold text-neutral-900 sm:text-3xl">Explore Events</h1>
             <p class="mt-1 text-sm text-neutral-500">Find concerts, parties, conferences, and festivals near you.</p>
 
-            <form method="GET" action="{{ route('events.index') }}" class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-4">
+            <form method="GET" action="{{ route('events.index') }}" class="mt-4 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-4">
                 <div class="relative sm:col-span-2">
                     <x-heroicon-o-magnifying-glass class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-400" />
                     <input
@@ -48,11 +48,11 @@
         </div>
     </div>
 
-    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         @if($events->isEmpty())
             <x-empty-state icon="calendar-days" title="No events found." description="Try adjusting your search or filters." />
         @else
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
                 @foreach($events as $event)
                     <x-event-card :event="$event" />
                 @endforeach
