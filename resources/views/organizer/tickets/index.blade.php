@@ -45,17 +45,54 @@
         @if($items->isEmpty())
             <x-empty-state icon="ticket" title="No tickets found." description="Try adjusting your search or filters." />
         @else
-            <div class="overflow-x-auto">
+            {{-- Mobile: stacked cards --}}
+            <div class="divide-y divide-neutral-100 lg:hidden">
+                @foreach($items as $item)
+                    @php
+                        $checkedInCount = $item->tickets->where('checked_in', true)->count();
+                    @endphp
+                    <div class="p-4">
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="min-w-0">
+                                <p class="truncate text-sm font-semibold text-neutral-900">{{ $item->order->customer_name }}</p>
+                                <p class="mt-0.5 truncate text-xs text-neutral-400">{{ $item->order->customer_whatsapp }}</p>
+                            </div>
+                            <x-badge :color="match($item->order->status) { 'paid' => 'success', 'pending' => 'warning', default => 'danger' }">
+                                {{ ucfirst($item->order->status) }}
+                            </x-badge>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-between text-xs">
+                            <span class="text-neutral-500">{{ $item->quantity }} × {{ $item->ticketType->name }}</span>
+                            <span class="font-semibold text-neutral-900">{{ $settings->formatPrice($item->subtotal) }}</span>
+                        </div>
+
+                        <div class="mt-1.5 flex items-center justify-between text-xs text-neutral-400">
+                            <span>
+                                @if($item->tickets->isEmpty())
+                                    Not checked in
+                                @else
+                                    {{ $checkedInCount }}/{{ $item->tickets->count() }} checked in
+                                @endif
+                            </span>
+                            <span>{{ $item->created_at->format('d M Y') }}</span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            {{-- Desktop: table --}}
+            <div class="hidden overflow-x-auto lg:block">
                 <table class="w-full text-left text-sm">
                     <thead class="border-b border-neutral-100 bg-neutral-50 text-xs font-semibold uppercase tracking-wide text-neutral-500">
                         <tr>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Customer</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Ticket Type</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Qty</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Amount</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Payment</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Check-in</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Date</th>
+                            <th class="px-5 py-3">Customer</th>
+                            <th class="px-5 py-3">Ticket Type</th>
+                            <th class="px-5 py-3">Qty</th>
+                            <th class="px-5 py-3">Amount</th>
+                            <th class="px-5 py-3">Payment</th>
+                            <th class="px-5 py-3">Check-in</th>
+                            <th class="px-5 py-3">Date</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-neutral-100">
@@ -64,26 +101,26 @@
                                 $checkedInCount = $item->tickets->where('checked_in', true)->count();
                             @endphp
                             <tr>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5">
+                                <td class="px-5 py-3.5">
                                     <p class="font-semibold text-neutral-900">{{ $item->order->customer_name }}</p>
                                     <p class="text-xs text-neutral-400">{{ $item->order->customer_whatsapp }} · {{ $item->order->customer_email }}</p>
                                 </td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $item->ticketType->name }}</td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $item->quantity }}</td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $settings->formatPrice($item->subtotal) }}</td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5">
+                                <td class="px-5 py-3.5 text-neutral-600">{{ $item->ticketType->name }}</td>
+                                <td class="px-5 py-3.5 text-neutral-600">{{ $item->quantity }}</td>
+                                <td class="px-5 py-3.5 text-neutral-600">{{ $settings->formatPrice($item->subtotal) }}</td>
+                                <td class="px-5 py-3.5">
                                     <x-badge :color="match($item->order->status) { 'paid' => 'success', 'pending' => 'warning', default => 'danger' }">
                                         {{ ucfirst($item->order->status) }}
                                     </x-badge>
                                 </td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">
+                                <td class="px-5 py-3.5 text-neutral-600">
                                     @if($item->tickets->isEmpty())
                                         —
                                     @else
                                         {{ $checkedInCount }}/{{ $item->tickets->count() }}
                                     @endif
                                 </td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-500">{{ $item->created_at->format('d M Y') }}</td>
+                                <td class="px-5 py-3.5 text-neutral-500">{{ $item->created_at->format('d M Y') }}</td>
                             </tr>
                         @endforeach
                     </tbody>

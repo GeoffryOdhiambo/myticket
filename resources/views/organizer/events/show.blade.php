@@ -54,29 +54,48 @@
             @if($event->ticketTypes->isEmpty())
                 <x-empty-state icon="ticket" title="No ticket types yet." description="Add at least one ticket type before publishing this event." />
             @else
-                <div class="overflow-x-auto">
+                {{-- Mobile: stacked cards --}}
+                <div class="divide-y divide-neutral-100 sm:hidden">
+                    @foreach($event->ticketTypes as $type)
+                        <a href="{{ route('organizer.ticket-types.edit', $type) }}" class="flex items-center justify-between gap-3 p-4 active:bg-neutral-50">
+                            <div class="min-w-0">
+                                <p class="truncate text-sm font-semibold text-neutral-900">{{ $type->name }}</p>
+                                <p class="mt-0.5 text-xs text-neutral-500">
+                                    {{ $type->price_label }} · {{ $type->quantity_sold }} sold · {{ $type->available_quantity ?? 'Unlimited' }} left
+                                </p>
+                            </div>
+                            <div class="flex shrink-0 items-center gap-2">
+                                <x-badge :color="$type->status === 'active' ? 'success' : 'neutral'">{{ ucfirst($type->status) }}</x-badge>
+                                <x-heroicon-o-chevron-right class="h-4 w-4 text-neutral-300" />
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+
+                {{-- Desktop: table --}}
+                <div class="hidden overflow-x-auto sm:block">
                 <table class="w-full text-left text-sm">
                     <thead class="border-b border-neutral-100 bg-neutral-50 text-xs font-semibold uppercase tracking-wide text-neutral-500">
                         <tr>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Name</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Price</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Sold</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Available</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Status</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3"></th>
+                            <th class="px-5 py-3">Name</th>
+                            <th class="px-5 py-3">Price</th>
+                            <th class="px-5 py-3">Sold</th>
+                            <th class="px-5 py-3">Available</th>
+                            <th class="px-5 py-3">Status</th>
+                            <th class="px-5 py-3"></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-neutral-100">
                         @foreach($event->ticketTypes as $type)
                             <tr>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-neutral-900">{{ $type->name }}</td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $type->price_label }}</td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $type->quantity_sold }}</td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $type->available_quantity ?? 'Unlimited' }}</td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5">
+                                <td class="px-5 py-3.5 font-semibold text-neutral-900">{{ $type->name }}</td>
+                                <td class="px-5 py-3.5 text-neutral-600">{{ $type->price_label }}</td>
+                                <td class="px-5 py-3.5 text-neutral-600">{{ $type->quantity_sold }}</td>
+                                <td class="px-5 py-3.5 text-neutral-600">{{ $type->available_quantity ?? 'Unlimited' }}</td>
+                                <td class="px-5 py-3.5">
                                     <x-badge :color="$type->status === 'active' ? 'success' : 'neutral'">{{ ucfirst($type->status) }}</x-badge>
                                 </td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-right">
+                                <td class="px-5 py-3.5 text-right">
                                     <a href="{{ route('organizer.ticket-types.edit', $type) }}" class="font-semibold text-brand hover:text-brand-dark">Edit</a>
                                 </td>
                             </tr>

@@ -22,33 +22,52 @@
                     </x-slot:action>
                 </x-empty-state>
             @else
-                <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
-                    <thead class="border-b border-neutral-100 bg-neutral-50 text-xs font-semibold uppercase tracking-wide text-neutral-500">
-                        <tr>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Event</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Date</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3">Status</th>
-                            <th class="px-3 py-2.5 sm:px-5 sm:py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-neutral-100">
-                        @foreach($recentEvents as $event)
+                {{-- Mobile: stacked cards --}}
+                <div class="divide-y divide-neutral-100 sm:hidden">
+                    @foreach($recentEvents as $event)
+                        <a href="{{ route('organizer.events.show', $event) }}" class="flex items-center justify-between gap-3 p-4 active:bg-neutral-50">
+                            <div class="min-w-0">
+                                <p class="truncate text-sm font-semibold text-neutral-900">{{ $event->name }}</p>
+                                <p class="mt-0.5 text-xs text-neutral-500">{{ $event->event_date->format('d M Y') }}</p>
+                            </div>
+                            <div class="flex shrink-0 items-center gap-2">
+                                <x-badge :color="match($event->status) { 'published' => 'success', 'draft' => 'neutral', 'suspended' => 'danger', default => 'warning' }">
+                                    {{ ucfirst($event->status) }}
+                                </x-badge>
+                                <x-heroicon-o-chevron-right class="h-4 w-4 text-neutral-300" />
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+
+                {{-- Desktop: table --}}
+                <div class="hidden overflow-x-auto sm:block">
+                    <table class="w-full text-left text-sm">
+                        <thead class="border-b border-neutral-100 bg-neutral-50 text-xs font-semibold uppercase tracking-wide text-neutral-500">
                             <tr>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-neutral-900">{{ $event->name }}</td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-500">{{ $event->event_date->format('d M Y') }}</td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5">
-                                    <x-badge :color="match($event->status) { 'published' => 'success', 'draft' => 'neutral', 'suspended' => 'danger', default => 'warning' }">
-                                        {{ ucfirst($event->status) }}
-                                    </x-badge>
-                                </td>
-                                <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-right">
-                                    <a href="{{ route('organizer.events.show', $event) }}" class="font-semibold text-brand hover:text-brand-dark">View</a>
-                                </td>
+                                <th class="px-5 py-3">Event</th>
+                                <th class="px-5 py-3">Date</th>
+                                <th class="px-5 py-3">Status</th>
+                                <th class="px-5 py-3"></th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="divide-y divide-neutral-100">
+                            @foreach($recentEvents as $event)
+                                <tr>
+                                    <td class="px-5 py-3.5 font-semibold text-neutral-900">{{ $event->name }}</td>
+                                    <td class="px-5 py-3.5 text-neutral-500">{{ $event->event_date->format('d M Y') }}</td>
+                                    <td class="px-5 py-3.5">
+                                        <x-badge :color="match($event->status) { 'published' => 'success', 'draft' => 'neutral', 'suspended' => 'danger', default => 'warning' }">
+                                            {{ ucfirst($event->status) }}
+                                        </x-badge>
+                                    </td>
+                                    <td class="px-5 py-3.5 text-right">
+                                        <a href="{{ route('organizer.events.show', $event) }}" class="font-semibold text-brand hover:text-brand-dark">View</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             @endif
         </x-card>

@@ -12,27 +12,44 @@
         @if($organizers->isEmpty())
             <x-empty-state icon="building-storefront" title="No organizers found." />
         @else
-            <div class="overflow-x-auto">
+            {{-- Mobile: stacked cards --}}
+            <div class="divide-y divide-neutral-100 sm:hidden">
+                @foreach($organizers as $organizer)
+                    <a href="{{ route('admin.organizers.show', $organizer) }}" class="flex items-center justify-between gap-3 p-4 active:bg-neutral-50">
+                        <div class="min-w-0">
+                            <p class="truncate text-sm font-semibold text-neutral-900">{{ $organizer->business_name }}</p>
+                            <p class="mt-0.5 truncate text-xs text-neutral-500">{{ $organizer->name }} · {{ $organizer->events_count }} events</p>
+                        </div>
+                        <div class="flex shrink-0 items-center gap-2">
+                            <x-badge :color="$organizer->status === 'active' ? 'success' : 'danger'">{{ ucfirst($organizer->status) }}</x-badge>
+                            <x-heroicon-o-chevron-right class="h-4 w-4 text-neutral-300" />
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+
+            {{-- Desktop: table --}}
+            <div class="hidden overflow-x-auto sm:block">
             <table class="w-full text-left text-sm">
                 <thead class="border-b border-neutral-100 bg-neutral-50 text-xs font-semibold uppercase tracking-wide text-neutral-500">
                     <tr>
-                        <th class="px-3 py-2.5 sm:px-5 sm:py-3">Business</th>
-                        <th class="px-3 py-2.5 sm:px-5 sm:py-3">Contact</th>
-                        <th class="px-3 py-2.5 sm:px-5 sm:py-3">Events</th>
-                        <th class="px-3 py-2.5 sm:px-5 sm:py-3">Status</th>
-                        <th class="px-3 py-2.5 sm:px-5 sm:py-3"></th>
+                        <th class="px-5 py-3">Business</th>
+                        <th class="px-5 py-3">Contact</th>
+                        <th class="px-5 py-3">Events</th>
+                        <th class="px-5 py-3">Status</th>
+                        <th class="px-5 py-3"></th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-neutral-100">
                     @foreach($organizers as $organizer)
                         <tr>
-                            <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-neutral-900">{{ $organizer->business_name }}</td>
-                            <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-500">{{ $organizer->name }} · {{ $organizer->email }}</td>
-                            <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-neutral-600">{{ $organizer->events_count }}</td>
-                            <td class="px-3 py-2.5 sm:px-5 sm:py-3.5">
+                            <td class="px-5 py-3.5 font-semibold text-neutral-900">{{ $organizer->business_name }}</td>
+                            <td class="px-5 py-3.5 text-neutral-500">{{ $organizer->name }} · {{ $organizer->email }}</td>
+                            <td class="px-5 py-3.5 text-neutral-600">{{ $organizer->events_count }}</td>
+                            <td class="px-5 py-3.5">
                                 <x-badge :color="$organizer->status === 'active' ? 'success' : 'danger'">{{ ucfirst($organizer->status) }}</x-badge>
                             </td>
-                            <td class="px-3 py-2.5 sm:px-5 sm:py-3.5 text-right">
+                            <td class="px-5 py-3.5 text-right">
                                 <a href="{{ route('admin.organizers.show', $organizer) }}" class="font-semibold text-brand hover:text-brand-dark">View</a>
                             </td>
                         </tr>
