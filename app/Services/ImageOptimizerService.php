@@ -37,6 +37,26 @@ class ImageOptimizerService
             return $file->store($directory, $disk);
         }
 
+        // Phones save portrait shots as landscape pixels plus an EXIF "rotate
+        // me" flag that browsers honor. Re-encoding drops that flag, so bake
+        // the rotation into the pixels first or the photo ends up sideways.
+        if ($type === IMAGETYPE_JPEG && function_exists('exif_read_data')) {
+            $orientation = @exif_read_data($file->getRealPath())['Orientation'] ?? 1;
+            $rotated = match ($orientation) {
+                3 => imagerotate($source, 180, 0),
+                6 => imagerotate($source, -90, 0),
+                8 => imagerotate($source, 90, 0),
+                default => null,
+            };
+
+            if ($rotated) {
+                imagedestroy($source);
+                $source = $rotated;
+            }
+        }
+
+        $width = imagesx($source);
+        $height = imagesy($source);
         $isTranslucent = in_array($type, [IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP], true);
 
         if ($width > $maxWidth) {
