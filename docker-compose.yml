@@ -1,0 +1,91 @@
+# Tiko's own, self-contained stack on AlphaVPS — nothing here is shared
+# with Luminet/ToonAssets. Only `web` joins the external `proxy` network
+# (owned by the Traefik stack at /opt/apps/traefik); mysql lives solely
+# on the private `internal` network with no published ports.
+
+services:
+  web:
+    build:
+      context: .
+      target: web
+    container_name: tiko_web
+    restart: unless-stopped
+    depends_on:
+      - app
+    # Uploaded event images live on the shared storage volume; nginx
+    # serves them directly (see docker/nginx/default.conf) since this
+    # image never has the runtime public/storage symlink.
+    volumes:
+      - storage:/var/www/html/storage:ro
+    networks:
+      - proxy
+      - internal
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.tiko.rule=Host(`${APP_DOMAIN}`) || Host(`www.${APP_DOMAIN}`)
+      - traefik.http.routers.tiko.entrypoints=websecure
+      - traefik.http.routers.tiko.tls.certresolver=letsencrypt
+      - traefik.http.services.tiko.loadbalancer.server.port=80
+
+  app:
+    build:
+      context: .
+      target: app
+    container_name: tiko_app
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - storage:/var/www/html/storage
+    networks:
+      - internal
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # Sends ticket emails/WhatsApp (App\Jobs\SendTicketNotifications)
+  # when QUEUE_CONNECTION=database.
+  queue:
+    build:
+      context: .
+      target: app
+    container_name: tiko_queue
+    restart: unless-stopped
+    command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+    env_file: .env
+    volumes:
+      - storage:/var/www/html/storage
+    networks:
+      - internal
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.4
+    container_name: tiko_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+networks:
+  proxy:
+    external: true
+  internal:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  storage:

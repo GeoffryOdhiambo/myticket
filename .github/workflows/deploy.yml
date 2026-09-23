@@ -1,0 +1,61 @@
+name: Test and Deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_sqlite, gd, intl, zip, bcmath, exif, pcntl
+          coverage: none
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Build assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: Run test suite
+        env:
+          # Throwaway key for CI only; production has its own in .env on the server.
+          APP_KEY: 'base64:vQJqv3C0Mis/Y2Ca0vGz4NVJTD8bKwQQp3pRk8OoV58='
+        run: vendor/bin/phpunit
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script_stop: true
+          command_timeout: 30m
+          script: |
+            cd /opt/apps/tiko
+            docker/scripts/deploy.sh

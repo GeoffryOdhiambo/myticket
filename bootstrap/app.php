@@ -18,6 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Traefik terminates TLS in production; trust its X-Forwarded-* headers
+        // so generated URLs (ticket links, M-Pesa callbacks) use https.
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'organizer.active' => EnsureOrganizerIsActive::class,
             'guest' => RedirectIfAuthenticated::class,
