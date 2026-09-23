@@ -29,9 +29,26 @@ class EventController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        $events->getCollection()->transform(function (Event $event) {
-            $event->tickets_sold = Ticket::whereHas('orderItem.order', fn ($q) => $q->where('event_id', $event->id)->where('status', 'paid'))->count();
-            $event->revenue = Order::where('event_id', $event->id)->where('status', 'paid')->sum('total');
+        $eventIds = $events->getCollection()->pluck('id');
+
+        $soldByEvent = Ticket::query()
+            ->join('order_items', 'order_items.id', '=', 'tickets.order_item_id')
+            ->join('orders', 'orders.id', '=', 'order_items.order_id')
+            ->whereIn('orders.event_id', $eventIds)
+            ->where('orders.status', 'paid')
+            ->selectRaw('orders.event_id, count(*) as sold')
+            ->groupBy('orders.event_id')
+            ->pluck('sold', 'event_id');
+
+        $revenueByEvent = Order::whereIn('event_id', $eventIds)
+            ->where('status', 'paid')
+            ->selectRaw('event_id, sum(total) as revenue')
+            ->groupBy('event_id')
+            ->pluck('revenue', 'event_id');
+
+        $events->getCollection()->transform(function (Event $event) use ($soldByEvent, $revenueByEvent) {
+            $event->tickets_sold = $soldByEvent->get($event->id, 0);
+            $event->revenue = $revenueByEvent->get($event->id, 0);
 
             return $event;
         });
