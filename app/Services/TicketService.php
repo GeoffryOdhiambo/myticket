@@ -9,6 +9,7 @@ use App\Models\Ticket;
 use App\Models\TicketType;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TicketService
 {
@@ -33,6 +34,23 @@ class TicketService
             foreach ($order->items()->with('ticketType')->get() as $item) {
                 /** @var TicketType $ticketType */
                 $ticketType = TicketType::whereKey($item->ticket_type_id)->lockForUpdate()->first();
+
+                // The order was only checked against available inventory at
+                // checkout time; a concurrent order for the same limited
+                // ticket type could have sold out in between. The customer
+                // has already paid by this point, so we still honor it —
+                // refusing a ticket someone paid for isn't an option — but
+                // this needs an organizer's attention to sort out capacity.
+                if (! $ticketType->isUnlimited() && $ticketType->quantity_sold + $item->quantity > $ticketType->quantity) {
+                    Log::critical('[TicketService] Oversold ticket type', [
+                        'ticket_type_id' => $ticketType->id,
+                        'ticket_type_name' => $ticketType->name,
+                        'order_number' => $order->order_number,
+                        'quantity' => $ticketType->quantity,
+                        'quantity_sold_before' => $ticketType->quantity_sold,
+                        'quantity_requested' => $item->quantity,
+                    ]);
+                }
 
                 for ($i = 0; $i < $item->quantity; $i++) {
                     $event->increment('ticket_sequence');

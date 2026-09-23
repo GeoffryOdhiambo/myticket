@@ -22,8 +22,17 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         // Traefik terminates TLS in production; trust its X-Forwarded-* headers
-        // so generated URLs (ticket links, M-Pesa callbacks) use https.
-        $middleware->trustProxies(at: '*');
+        // so generated URLs (ticket links, M-Pesa callbacks) use https. Trusting
+        // '*' would let anyone spoof X-Forwarded-For to reset rate limits (each
+        // request just claims a new "client IP"), so scope trust to private/
+        // Docker-internal address space instead — that's genuinely where Traefik
+        // connects from, and a real external attacker can't fake their TCP
+        // source into a private range no matter what headers they send.
+        $middleware->trustProxies(at: [
+            '10.0.0.0/8',
+            '172.16.0.0/12',
+            '192.168.0.0/16',
+        ]);
 
         $middleware->alias([
             'organizer.active' => EnsureOrganizerIsActive::class,

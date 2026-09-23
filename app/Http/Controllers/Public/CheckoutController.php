@@ -108,6 +108,7 @@ class CheckoutController extends Controller
 
     public function simulate(Order $order): RedirectResponse
     {
+        abort_if(app()->environment('production'), 404);
         abort_unless($order->payment?->provider === 'manual', 404);
 
         if ($order->status === 'pending') {

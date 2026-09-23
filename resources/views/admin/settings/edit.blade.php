@@ -16,9 +16,9 @@
             <x-select
                 label="Payment driver"
                 name="payment_driver"
-                :options="['manual' => 'Manual (local/dev)', 'mpesa' => 'M-Pesa STK Push']"
+                :options="app()->environment('production') ? ['mpesa' => 'M-Pesa STK Push'] : ['manual' => 'Manual (local/dev)', 'mpesa' => 'M-Pesa STK Push']"
                 :value="$settings->payment_driver"
-                hint="M-Pesa requires MPESA_* credentials to be configured in the environment."
+                hint="M-Pesa requires MPESA_* credentials to be configured in the environment. The manual driver is only available outside production."
                 required
             />
 
