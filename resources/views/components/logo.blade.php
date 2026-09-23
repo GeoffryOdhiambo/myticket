@@ -6,5 +6,8 @@
         My<span class="text-brand">Ticket</span>
     </span>
 @else
-    <img src="{{ asset('images/logo.png') }}" alt="MyTicket" {{ $attributes->merge(['class' => 'h-8 w-auto sm:h-9']) }}>
+    <picture>
+        <source srcset="{{ asset('images/logo.webp') }}" type="image/webp">
+        <img src="{{ asset('images/logo.png') }}" alt="MyTicket" {{ $attributes->merge(['class' => 'h-10 w-auto sm:h-12']) }}>
+    </picture>
 @endif
