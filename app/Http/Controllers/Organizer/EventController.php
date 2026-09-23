@@ -13,7 +13,9 @@ use App\Models\Setting;
 use App\Models\Ticket;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -133,6 +135,34 @@ class EventController extends Controller
     }
 
     /**
+     * The in-app attendee list, so an organizer can see who has already
+     * checked in versus who is still pending without leaving the browser.
+     * A printable/PDF version is available from here as a door-side backup.
+     */
+    public function attendees(Event $event, Request $request): View
+    {
+        $this->ensureOwnsEvent($event);
+
+        $tickets = $this->attendeeTickets($event);
+
+        $status = $request->string('status')->value();
+        $filtered = match ($status) {
+            'checked_in' => $tickets->where('checked_in', true)->values(),
+            'pending' => $tickets->where('checked_in', false)->values(),
+            default => $tickets,
+        };
+
+        return view('organizer.events.attendees', [
+            'event' => $event,
+            'tickets' => $filtered,
+            'totalCount' => $tickets->count(),
+            'checkedInCount' => $tickets->where('checked_in', true)->count(),
+            'pendingCount' => $tickets->where('checked_in', false)->count(),
+            'status' => $status,
+        ]);
+    }
+
+    /**
      * A printable attendee list (ticket number, guest name, ticket type,
      * phone, a checkbox to tick manually) so entry staff have a backup
      * if QR scanning fails at the door.
@@ -141,18 +171,21 @@ class EventController extends Controller
     {
         $this->ensureOwnsEvent($event);
 
-        $tickets = Ticket::query()
+        $pdf = Pdf::loadView('organizer.events.attendees-pdf', [
+            'event' => $event,
+            'tickets' => $this->attendeeTickets($event),
+        ])->setPaper('a4', 'portrait');
+
+        return $pdf->download(Str::slug($event->name).'-attendee-list.pdf');
+    }
+
+    private function attendeeTickets(Event $event): Collection
+    {
+        return Ticket::query()
             ->whereHas('orderItem.order', fn ($q) => $q->where('event_id', $event->id)->where('status', 'paid'))
             ->with(['orderItem.order', 'orderItem.ticketType'])
             ->get()
             ->sortBy('ticket_number', SORT_NATURAL)
             ->values();
-
-        $pdf = Pdf::loadView('organizer.events.attendees-pdf', [
-            'event' => $event,
-            'tickets' => $tickets,
-        ])->setPaper('a4', 'portrait');
-
-        return $pdf->download(Str::slug($event->name).'-attendee-list.pdf');
     }
 }

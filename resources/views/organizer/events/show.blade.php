@@ -34,7 +34,7 @@
             </x-button>
             @if($ticketsSold > 0)
                 <x-button href="{{ route('organizer.events.attendees', $event) }}" variant="outline" size="sm">
-                    <x-heroicon-o-arrow-down-tray class="h-4 w-4" /> Attendee List
+                    <x-heroicon-o-users class="h-4 w-4" /> Attendees
                 </x-button>
             @endif
         </div>
