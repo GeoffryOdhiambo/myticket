@@ -7,11 +7,14 @@ use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
 use App\Models\EventCategory;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Organizer;
+use App\Models\Payment;
 use App\Models\Ticket;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
@@ -91,5 +94,29 @@ class EventController extends Controller
         $event->update(['status' => 'suspended']);
 
         return back()->with('success', 'Event suspended.');
+    }
+
+    /**
+     * Permanently delete an event and everything under it (ticket types,
+     * orders, order items, payments, tickets). Unlike the organizer's own
+     * delete action, the Super Admin can remove an event even if it has
+     * sales — full platform authority per the spec — so this is only
+     * exposed in the admin dashboard, never to organizers.
+     */
+    public function destroy(Event $event): RedirectResponse
+    {
+        DB::transaction(function () use ($event) {
+            $orderIds = $event->orders()->pluck('id');
+            $orderItemIds = OrderItem::whereIn('order_id', $orderIds)->pluck('id');
+
+            Ticket::whereIn('order_item_id', $orderItemIds)->delete();
+            Payment::whereIn('order_id', $orderIds)->delete();
+            OrderItem::whereIn('id', $orderItemIds)->delete();
+            Order::whereIn('id', $orderIds)->delete();
+            $event->ticketTypes()->delete();
+            $event->delete();
+        });
+
+        return redirect()->route('admin.events.index')->with('success', 'Event and all associated data permanently deleted.');
     }
 }

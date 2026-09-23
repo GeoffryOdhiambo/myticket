@@ -38,6 +38,13 @@
                     <x-button type="submit" variant="danger" size="sm">Suspend</x-button>
                 </form>
             @endif
+            <form method="POST" action="{{ route('admin.events.destroy', $event) }}" onsubmit="return confirm('Permanently delete &quot;{{ $event->name }}&quot;? This removes the event, its ticket types, and every order, payment, and ticket tied to it. This cannot be undone.');">
+                @csrf
+                @method('DELETE')
+                <x-button type="submit" variant="danger" size="sm">
+                    <x-heroicon-o-trash class="h-4 w-4" /> Delete
+                </x-button>
+            </form>
         </div>
     </div>
 

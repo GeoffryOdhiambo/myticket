@@ -35,6 +35,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('events/{event:slug}/publish', [EventController::class, 'publish'])->name('events.publish');
         Route::post('events/{event:slug}/unpublish', [EventController::class, 'unpublish'])->name('events.unpublish');
         Route::post('events/{event:slug}/suspend', [EventController::class, 'suspend'])->name('events.suspend');
+        Route::delete('events/{event:slug}', [EventController::class, 'destroy'])->name('events.destroy');
 
         Route::get('tickets', [TicketController::class, 'index'])->name('tickets.index');
 
