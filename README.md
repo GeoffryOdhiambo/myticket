@@ -65,14 +65,17 @@ The active payment driver is set in **Admin → Settings** (`payment_driver`, de
   during development). The `TicketPurchased` notification (`app/Notifications/TicketPurchased.php`) sends the
   confirmation with each ticket's PDF attached — no code changes are needed to switch providers, only `.env`.
   - **Resend** — the `resend/resend-php` SDK is already installed and Laravel's `resend` mailer is
-    preconfigured. The plan is to send from `myticket.top`. To go live: in the
-    [Resend dashboard](https://resend.com/domains), add `myticket.top` as a domain and add the SPF/DKIM
-    DNS records it gives you at your domain registrar (verification can take a few minutes to a few
-    hours to propagate). Once it shows "Verified", create an API key and set in `.env`:
+    preconfigured. Production sends from `send.myticket.top` (a dedicated sending subdomain, not the bare
+    `myticket.top`, so mail sending stays isolated from the root domain). In the
+    [Resend dashboard](https://resend.com/domains), add the domain you want to send from and add the
+    SPF/DKIM DNS records it gives you at your domain registrar (verification can take a few minutes to a
+    few hours to propagate). Once it shows "Verified", create an API key — if you scope the key to a
+    specific domain (recommended), make sure it matches the domain you verified exactly, or Resend
+    rejects the send with a 403. Then set in `.env`:
     ```
     MAIL_MAILER=resend
     RESEND_API_KEY=re_your_key_here
-    MAIL_FROM_ADDRESS=tickets@myticket.top
+    MAIL_FROM_ADDRESS=tickets@send.myticket.top
     ```
   - Any other provider Laravel supports out of the box (SMTP, SES, Postmark, Mailgun) works the same way —
     just set the matching `MAIL_*` variables.
