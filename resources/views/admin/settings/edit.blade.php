@@ -22,6 +22,16 @@
                 required
             />
 
+            <div class="border-t border-neutral-100 pt-5">
+                <label class="flex items-start gap-3">
+                    <input type="checkbox" name="require_organizer_approval" value="1" {{ old('require_organizer_approval', $settings->require_organizer_approval) ? 'checked' : '' }} class="mt-0.5 rounded border-neutral-300 text-brand focus:ring-brand/30">
+                    <span>
+                        <span class="block text-sm font-semibold text-neutral-800">Require approval for new organizer accounts</span>
+                        <span class="block text-xs text-neutral-500">When on, organizers who register themselves are held as "Pending" until you approve them from the Organizers page. When off, new registrations can log in and create events immediately.</span>
+                    </span>
+                </label>
+            </div>
+
             <div class="flex justify-end border-t border-neutral-100 pt-6">
                 <x-button type="submit" variant="dark">Save Settings</x-button>
             </div>

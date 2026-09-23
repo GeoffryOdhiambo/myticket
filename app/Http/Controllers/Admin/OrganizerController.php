@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\UpdateOrganizerRequest;
 use App\Models\Order;
 use App\Models\Organizer;
 use App\Models\Ticket;
+use App\Notifications\OrganizerApproved;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -91,5 +92,13 @@ class OrganizerController extends Controller
         $organizer->update(['status' => 'active']);
 
         return back()->with('success', 'Organizer activated.');
+    }
+
+    public function approve(Organizer $organizer): RedirectResponse
+    {
+        $organizer->update(['status' => 'active']);
+        $organizer->notify(new OrganizerApproved);
+
+        return back()->with('success', 'Organizer approved. They can now log in.');
     }
 }

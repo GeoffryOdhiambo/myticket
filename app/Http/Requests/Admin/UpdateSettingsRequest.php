@@ -20,6 +20,7 @@ class UpdateSettingsRequest extends FormRequest
             'platform_fee_percent' => ['required', 'integer', 'min:0', 'max:100'],
             'currency' => ['required', 'string', 'max:3'],
             'payment_driver' => ['required', 'in:manual,mpesa'],
+            'require_organizer_approval' => ['sometimes', 'boolean'],
         ];
     }
 }

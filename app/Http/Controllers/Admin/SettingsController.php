@@ -17,7 +17,10 @@ class SettingsController extends Controller
 
     public function update(UpdateSettingsRequest $request): RedirectResponse
     {
-        Setting::current()->update($request->validated());
+        Setting::current()->update([
+            ...$request->validated(),
+            'require_organizer_approval' => $request->boolean('require_organizer_approval'),
+        ]);
 
         return redirect()->route('admin.settings.edit')->with('success', 'Settings updated.');
     }

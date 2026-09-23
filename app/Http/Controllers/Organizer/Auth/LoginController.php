@@ -36,12 +36,16 @@ class LoginController extends Controller
             ]);
         }
 
-        if (! Auth::guard('organizer')->user()->isActive()) {
+        $organizer = Auth::guard('organizer')->user();
+
+        if (! $organizer->isActive()) {
             Auth::guard('organizer')->logout();
 
-            throw ValidationException::withMessages([
-                'email' => 'Your organizer account has been suspended. Please contact Tiko support.',
-            ]);
+            $message = $organizer->status === 'pending'
+                ? 'Your account is awaiting approval. We will email you as soon as it is approved.'
+                : 'Your organizer account has been suspended. Please contact Tiko support.';
+
+            throw ValidationException::withMessages(['email' => $message]);
         }
 
         $this->clearLoginAttempts($request);

@@ -21,7 +21,7 @@
                             <p class="mt-0.5 truncate text-xs text-neutral-500">{{ $organizer->name }} · {{ $organizer->events_count }} events</p>
                         </div>
                         <div class="flex shrink-0 items-center gap-2">
-                            <x-badge :color="$organizer->status === 'active' ? 'success' : 'danger'">{{ ucfirst($organizer->status) }}</x-badge>
+                            <x-badge :color="match($organizer->status) { 'active' => 'success', 'pending' => 'warning', default => 'danger' }">{{ ucfirst($organizer->status) }}</x-badge>
                             <x-heroicon-o-chevron-right class="h-4 w-4 text-neutral-300" />
                         </div>
                     </a>
@@ -47,7 +47,7 @@
                             <td class="px-5 py-3.5 text-neutral-500">{{ $organizer->name }} · {{ $organizer->email }}</td>
                             <td class="px-5 py-3.5 text-neutral-600">{{ $organizer->events_count }}</td>
                             <td class="px-5 py-3.5">
-                                <x-badge :color="$organizer->status === 'active' ? 'success' : 'danger'">{{ ucfirst($organizer->status) }}</x-badge>
+                                <x-badge :color="match($organizer->status) { 'active' => 'success', 'pending' => 'warning', default => 'danger' }">{{ ucfirst($organizer->status) }}</x-badge>
                             </td>
                             <td class="px-5 py-3.5 text-right">
                                 <a href="{{ route('admin.organizers.show', $organizer) }}" class="font-semibold text-brand hover:text-brand-dark">View</a>

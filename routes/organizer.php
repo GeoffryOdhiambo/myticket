@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Organizer\Auth\LoginController;
 use App\Http\Controllers\Organizer\Auth\PasswordResetController;
+use App\Http\Controllers\Organizer\Auth\RegisterController;
 use App\Http\Controllers\Organizer\DashboardController;
 use App\Http\Controllers\Organizer\EventController;
 use App\Http\Controllers\Organizer\ScannerController;
@@ -13,6 +14,8 @@ Route::prefix('organizer')->name('organizer.')->group(function () {
     Route::middleware('guest:organizer')->group(function () {
         Route::get('login', [LoginController::class, 'show'])->name('login');
         Route::post('login', [LoginController::class, 'login'])->middleware('throttle:10,1')->name('login.store');
+        Route::get('register', [RegisterController::class, 'show'])->name('register');
+        Route::post('register', [RegisterController::class, 'store'])->middleware('throttle:5,1')->name('register.store');
         Route::get('forgot-password', [PasswordResetController::class, 'showForgotForm'])->name('password.request');
         Route::post('forgot-password', [PasswordResetController::class, 'sendResetLink'])->middleware('throttle:5,1')->name('password.email');
         Route::get('reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');

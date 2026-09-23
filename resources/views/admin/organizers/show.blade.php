@@ -7,7 +7,7 @@
         <div>
             <div class="flex items-center gap-2">
                 <h1 class="text-xl font-extrabold text-neutral-900 sm:text-2xl">{{ $organizer->business_name }}</h1>
-                <x-badge :color="$organizer->status === 'active' ? 'success' : 'danger'">{{ ucfirst($organizer->status) }}</x-badge>
+                <x-badge :color="match($organizer->status) { 'active' => 'success', 'pending' => 'warning', default => 'danger' }">{{ ucfirst($organizer->status) }}</x-badge>
             </div>
             <p class="mt-1 text-sm text-neutral-500">{{ $organizer->name }} · {{ $organizer->email }} · {{ $organizer->phone }}</p>
         </div>
@@ -16,7 +16,16 @@
             <x-button href="{{ route('admin.organizers.edit', $organizer) }}" variant="outline" size="sm">
                 <x-heroicon-o-pencil-square class="h-4 w-4" /> Edit
             </x-button>
-            @if($organizer->status === 'active')
+            @if($organizer->status === 'pending')
+                <form method="POST" action="{{ route('admin.organizers.approve', $organizer) }}">
+                    @csrf
+                    <x-button type="submit" size="sm">Approve</x-button>
+                </form>
+                <form method="POST" action="{{ route('admin.organizers.suspend', $organizer) }}" onsubmit="return confirm('Reject this organizer? They will not be able to log in.');">
+                    @csrf
+                    <x-button type="submit" variant="danger" size="sm">Reject</x-button>
+                </form>
+            @elseif($organizer->status === 'active')
                 <form method="POST" action="{{ route('admin.organizers.suspend', $organizer) }}" onsubmit="return confirm('Suspend this organizer? They will be logged out and unable to sign in.');">
                     @csrf
                     <x-button type="submit" variant="danger" size="sm">Suspend</x-button>

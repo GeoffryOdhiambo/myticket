@@ -15,4 +15,8 @@
 
         <x-button type="submit" class="w-full">Log In</x-button>
     </form>
+
+    <p class="mt-6 text-center text-sm text-neutral-500">
+        Don't have an account? <a href="{{ route('organizer.register') }}" class="font-semibold text-brand hover:text-brand-dark">Register</a>
+    </p>
 </x-auth-card>

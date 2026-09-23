@@ -27,6 +27,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('organizers', OrganizerController::class);
         Route::post('organizers/{organizer}/suspend', [OrganizerController::class, 'suspend'])->name('organizers.suspend');
         Route::post('organizers/{organizer}/activate', [OrganizerController::class, 'activate'])->name('organizers.activate');
+        Route::post('organizers/{organizer}/approve', [OrganizerController::class, 'approve'])->name('organizers.approve');
 
         Route::get('events', [EventController::class, 'index'])->name('events.index');
         Route::get('events/{event:slug}', [EventController::class, 'show'])->name('events.show');

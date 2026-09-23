@@ -18,12 +18,14 @@ class Setting extends Model
         'platform_fee_percent',
         'currency',
         'payment_driver',
+        'require_organizer_approval',
     ];
 
     protected function casts(): array
     {
         return [
             'platform_fee_percent' => 'integer',
+            'require_organizer_approval' => 'boolean',
         ];
     }
 
