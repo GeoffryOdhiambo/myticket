@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureOrganizerIsActive;
+use App\Http\Middleware\PreventCaching;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -25,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'organizer.active' => EnsureOrganizerIsActive::class,
             'guest' => RedirectIfAuthenticated::class,
+            'no-cache' => PreventCaching::class,
         ]);
 
         $middleware->redirectGuestsTo(function ($request) {

@@ -8,10 +8,10 @@ use App\Http\Controllers\Public\Payments\MpesaCallbackController;
 use App\Http\Controllers\Public\TicketController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->middleware('no-cache')->name('home');
 
-Route::get('/events', [EventController::class, 'index'])->name('events.index');
-Route::get('/events/{event:slug}', [EventController::class, 'show'])->name('events.show');
+Route::get('/events', [EventController::class, 'index'])->middleware('no-cache')->name('events.index');
+Route::get('/events/{event:slug}', [EventController::class, 'show'])->middleware('no-cache')->name('events.show');
 
 Route::get('/checkout/{event:slug}', [CheckoutController::class, 'create'])->name('checkout.create');
 Route::post('/checkout/{event:slug}', [CheckoutController::class, 'store'])->middleware('throttle:10,1')->name('checkout.store');
