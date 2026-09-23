@@ -26,7 +26,8 @@ class MpesaPaymentService extends AbstractPaymentService
         $response = Http::withBasicAuth(
             config('services.mpesa.consumer_key'),
             config('services.mpesa.consumer_secret')
-        )->get("{$this->baseUrl()}/oauth/v1/generate", ['grant_type' => 'client_credentials'])->throw();
+        )->timeout(config('services.mpesa.timeout', 30))
+            ->get("{$this->baseUrl()}/oauth/v1/generate", ['grant_type' => 'client_credentials'])->throw();
 
         return $response->json('access_token');
     }
@@ -34,19 +35,21 @@ class MpesaPaymentService extends AbstractPaymentService
     public function initiate(Order $order): void
     {
         $shortcode = config('services.mpesa.shortcode');
+        $isTill = config('services.mpesa.shortcode_type') === 'till';
         $timestamp = now()->format('YmdHis');
         $password = base64_encode($shortcode.config('services.mpesa.passkey').$timestamp);
         $phone = $this->normalizePhone($order->customer_whatsapp);
 
         $response = Http::withToken($this->accessToken())
+            ->timeout(config('services.mpesa.timeout', 30))
             ->post("{$this->baseUrl()}/mpesa/stkpush/v1/processrequest", [
                 'BusinessShortCode' => $shortcode,
                 'Password' => $password,
                 'Timestamp' => $timestamp,
-                'TransactionType' => 'CustomerPayBillOnline',
+                'TransactionType' => $isTill ? 'CustomerBuyGoodsOnline' : 'CustomerPayBillOnline',
                 'Amount' => $order->total,
                 'PartyA' => $phone,
-                'PartyB' => $shortcode,
+                'PartyB' => $isTill ? config('services.mpesa.till_number') : $shortcode,
                 'PhoneNumber' => $phone,
                 'CallBackURL' => config('services.mpesa.callback_url'),
                 'AccountReference' => $order->order_number,

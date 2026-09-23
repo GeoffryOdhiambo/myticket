@@ -40,8 +40,14 @@ return [
         'consumer_key' => env('MPESA_CONSUMER_KEY'),
         'consumer_secret' => env('MPESA_CONSUMER_SECRET'),
         'shortcode' => env('MPESA_SHORTCODE'),
+        // 'paybill' (default) or 'till' — a Till/Buy Goods account uses a
+        // different transaction type and a distinct PartyB (the till
+        // number) from the shortcode used to authenticate the request.
+        'shortcode_type' => env('MPESA_SHORTCODE_TYPE', 'paybill'),
+        'till_number' => env('MPESA_TILL_NUMBER'),
         'passkey' => env('MPESA_PASSKEY'),
         'callback_url' => env('MPESA_CALLBACK_URL'),
+        'timeout' => env('MPESA_TIMEOUT', 30),
     ],
 
     'whatsapp' => [
