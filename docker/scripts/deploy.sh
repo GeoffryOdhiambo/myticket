@@ -26,7 +26,17 @@ until [ "$(docker inspect -f '{{.State.Health.Status}}' tiko_mysql 2>/dev/null)"
 done
 
 echo "==> Running migrations"
-docker compose exec -T app php artisan migrate --force
+for attempt in $(seq 1 10); do
+    if docker compose exec -T app php artisan migrate --force; then
+        break
+    fi
+    if [ "$attempt" -eq 10 ]; then
+        echo "==> FAILED: migrations did not succeed after 10 attempts"
+        exit 1
+    fi
+    echo "==> Database not ready yet, retrying in 3s ($attempt/10)"
+    sleep 3
+done
 
 echo "==> Restarting queue worker and web"
 docker compose restart queue web

@@ -75,7 +75,10 @@ services:
     networks:
       - internal
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
+      # TCP (127.0.0.1), not the socket: on a fresh volume the image first
+      # runs a socket-only temporary server for init, which would otherwise
+      # report healthy before the real server is up.
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
       interval: 5s
       timeout: 5s
       retries: 10
