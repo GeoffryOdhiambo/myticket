@@ -14,8 +14,8 @@ class SettingSeeder extends Seeder
         }
 
         Setting::create([
-            'platform_name' => 'Tiko',
-            'support_email' => 'support@tiko.africa',
+            'platform_name' => 'MyTicket',
+            'support_email' => 'support@myticket.top',
             'support_phone' => '+254 700 000 000',
             'platform_fee_percent' => 5,
             'currency' => 'KES',

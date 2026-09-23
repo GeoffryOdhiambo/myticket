@@ -4,7 +4,7 @@
     <div class="flex min-h-screen items-center justify-center bg-neutral-50 px-4 py-8 sm:py-12">
         <div class="w-full max-w-md">
             <a href="{{ route('home') }}" class="mb-4 inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-500 hover:text-neutral-900">
-                <x-heroicon-o-arrow-left class="h-4 w-4" /> Back to Tiko
+                <x-heroicon-o-arrow-left class="h-4 w-4" /> Back to MyTicket
             </a>
 
             <div class="mb-6 flex flex-col items-center text-center sm:mb-8">

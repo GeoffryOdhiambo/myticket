@@ -7,7 +7,7 @@
         <p class="text-sm font-semibold uppercase tracking-wide text-brand">Get in Touch</p>
         <h1 class="mt-2 text-2xl font-extrabold text-neutral-900 sm:text-4xl">We're here to help.</h1>
         <p class="mt-3 text-sm text-neutral-600 sm:mt-4 sm:text-base">
-            Have a question about an order, a ticket, or hosting your event on Tiko? Reach out and our team will get back to you.
+            Have a question about an order, a ticket, or hosting your event on MyTicket? Reach out and our team will get back to you.
         </p>
 
         <div class="mt-6 grid gap-3 sm:mt-10 sm:grid-cols-2 sm:gap-4">

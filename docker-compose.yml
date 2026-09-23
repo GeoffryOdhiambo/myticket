@@ -1,4 +1,4 @@
-# Tiko's own, self-contained stack on AlphaVPS — nothing here is shared
+# MyTicket's own, self-contained stack on AlphaVPS — nothing here is shared
 # with Luminet/ToonAssets. Only `web` joins the external `proxy` network
 # (owned by the Traefik stack at /opt/apps/traefik); mysql lives solely
 # on the private `internal` network with no published ports.

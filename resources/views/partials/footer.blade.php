@@ -4,7 +4,7 @@
             <div>
                 <x-logo />
                 <p class="mt-3 max-w-xs text-sm text-neutral-500">
-                    Tiko makes it simple to discover events and buy tickets online — concerts, parties, conferences and festivals.
+                    MyTicket makes it simple to discover events and buy tickets online — concerts, parties, conferences and festivals.
                 </p>
             </div>
 
@@ -36,7 +36,7 @@
         </div>
 
         <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-neutral-200 pt-6 text-xs text-neutral-400 sm:flex-row">
-            <p>&copy; {{ now()->year }} Tiko. All rights reserved.</p>
+            <p>&copy; {{ now()->year }} MyTicket. All rights reserved.</p>
             <p>Built for events, entertainment, and unforgettable experiences.</p>
         </div>
     </div>

@@ -11,7 +11,7 @@ class SuperAdminSeeder extends Seeder
     {
         User::updateOrCreate(
             ['email' => 'admin@tiko.africa'],
-            ['name' => 'Tiko Super Admin', 'password' => 'password']
+            ['name' => 'MyTicket Super Admin', 'password' => 'password']
         );
     }
 }

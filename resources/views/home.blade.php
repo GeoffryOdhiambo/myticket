@@ -21,7 +21,7 @@
             </h1>
 
             <p class="mx-auto mt-4 max-w-xl text-sm text-neutral-200 sm:mt-6 sm:text-lg">
-                Tiko makes it easy to discover events and buy tickets online — concerts, parties, conferences, festivals, and unforgettable experiences.
+                MyTicket makes it easy to discover events and buy tickets online — concerts, parties, conferences, festivals, and unforgettable experiences.
             </p>
 
             <form action="{{ route('events.index') }}" method="GET" class="mx-auto mt-6 flex max-w-lg flex-col gap-3 sm:mt-8 sm:flex-row">
@@ -93,11 +93,11 @@
         </div>
     </section>
 
-    {{-- How Tiko Works --}}
+    {{-- How MyTicket Works --}}
     <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
         <div class="text-center animate-in">
             <p class="text-xs font-semibold uppercase tracking-wide text-brand sm:text-sm">Simple &amp; Fast</p>
-            <h2 class="mt-1 text-xl font-extrabold text-neutral-900 sm:text-3xl">How Tiko Works</h2>
+            <h2 class="mt-1 text-xl font-extrabold text-neutral-900 sm:text-3xl">How MyTicket Works</h2>
         </div>
 
         <div class="mt-6 grid grid-cols-1 gap-6 sm:mt-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -140,7 +140,7 @@
             <div class="grid items-center gap-6 lg:grid-cols-2 lg:gap-10">
                 <div class="animate-in">
                     <p class="text-xs font-semibold uppercase tracking-wide text-brand sm:text-sm">Hosting an Event?</p>
-                    <h2 class="mt-2 text-xl font-extrabold text-white sm:text-3xl">Sell your tickets online with Tiko and make entry management simple.</h2>
+                    <h2 class="mt-2 text-xl font-extrabold text-white sm:text-3xl">Sell your tickets online with MyTicket and make entry management simple.</h2>
                     <p class="mt-3 text-sm text-neutral-300 sm:mt-4 sm:text-base">
                         Publish your event, set your ticket types, and start selling in minutes. Track sales and
                         check in guests with a scanner built for your phone.

@@ -43,7 +43,7 @@ class LoginController extends Controller
 
             $message = $organizer->status === 'pending'
                 ? 'Your account is awaiting approval. We will email you as soon as it is approved.'
-                : 'Your organizer account has been suspended. Please contact Tiko support.';
+                : 'Your organizer account has been suspended. Please contact MyTicket support.';
 
             throw ValidationException::withMessages(['email' => $message]);
         }

@@ -50,7 +50,7 @@ class MpesaPaymentService extends AbstractPaymentService
                 'PhoneNumber' => $phone,
                 'CallBackURL' => config('services.mpesa.callback_url'),
                 'AccountReference' => $order->order_number,
-                'TransactionDesc' => "Tiko ticket - {$order->event->name}",
+                'TransactionDesc' => "MyTicket - {$order->event->name}",
             ])
             ->throw()
             ->json();

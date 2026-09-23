@@ -38,7 +38,7 @@ class Setting extends Model
     {
         return Cache::rememberForever('tiko.settings', function () {
             return static::first() ?? static::create([
-                'platform_name' => 'Tiko',
+                'platform_name' => 'MyTicket',
                 'support_email' => 'support@tiko.africa',
                 'support_phone' => '+254 700 000 000',
                 'platform_fee_percent' => 5,

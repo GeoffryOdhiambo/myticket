@@ -7,7 +7,7 @@
 
     <x-card padded="{{ false }}" class="mt-4 overflow-hidden">
         @if($events->isEmpty())
-            <x-empty-state icon="calendar-days" title="You have not created any events yet." description="Create your first event to start selling tickets on Tiko.">
+            <x-empty-state icon="calendar-days" title="You have not created any events yet." description="Create your first event to start selling tickets on MyTicket.">
                 <x-slot:action>
                     <x-button href="{{ route('organizer.events.create') }}">Create Event</x-button>
                 </x-slot:action>

@@ -1,6 +1,6 @@
-# Tiko
+# MyTicket
 
-Tiko is a lightweight online event ticketing platform: customers discover events and buy tickets
+MyTicket is a lightweight online event ticketing platform: customers discover events and buy tickets
 without creating an account, organizers publish events and manage sales from their own dashboard,
 and a Super Admin oversees the whole platform. Tickets are delivered as a QR-coded PDF by email
 (and WhatsApp, via a swappable notification driver) and checked in with a mobile-optimized scanner.

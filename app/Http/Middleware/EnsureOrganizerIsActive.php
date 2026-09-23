@@ -18,7 +18,7 @@ class EnsureOrganizerIsActive
             $request->session()->regenerateToken();
 
             return redirect()->route('organizer.login')
-                ->withErrors(['email' => 'Your organizer account has been suspended. Please contact Tiko support.']);
+                ->withErrors(['email' => 'Your organizer account has been suspended. Please contact MyTicket support.']);
         }
 
         return $next($request);

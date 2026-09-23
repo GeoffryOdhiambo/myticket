@@ -37,6 +37,6 @@ class RegisterController extends Controller
         Auth::guard('organizer')->login($organizer);
         $request->session()->regenerate();
 
-        return redirect()->route('organizer.dashboard')->with('success', 'Welcome to Tiko! Your account is ready.');
+        return redirect()->route('organizer.dashboard')->with('success', 'Welcome to MyTicket! Your account is ready.');
     }
 }

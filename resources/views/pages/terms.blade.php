@@ -5,7 +5,7 @@
 
         <div class="mt-8 space-y-6 text-sm leading-relaxed text-neutral-600">
             <p>
-                By purchasing a ticket or publishing an event through Tiko, you agree to the following terms.
+                By purchasing a ticket or publishing an event through MyTicket, you agree to the following terms.
                 These terms may be updated from time to time to reflect changes to the platform.
             </p>
 
@@ -21,7 +21,7 @@
                 <h2 class="text-base font-bold text-neutral-900">Organizers</h2>
                 <p class="mt-2">
                     Organizers are responsible for the accuracy of their event details and for honoring valid
-                    tickets sold through Tiko. Tiko charges a platform fee on ticket sales, disclosed before publishing.
+                    tickets sold through MyTicket. MyTicket charges a platform fee on ticket sales, disclosed before publishing.
                 </p>
             </div>
 

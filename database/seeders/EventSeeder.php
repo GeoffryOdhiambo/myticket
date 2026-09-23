@@ -59,7 +59,7 @@ class EventSeeder extends Seeder
             'entertainment' => "{$name} promises a night of laughter, live performances, and entertainment you won't want to miss.",
         ];
 
-        return ($intros[$category] ?? "{$name} is one of Tiko's most anticipated events.")
+        return ($intros[$category] ?? "{$name} is one of MyTicket's most anticipated events.")
             .' Doors open early, so grab your ticket in advance and secure your spot.';
     }
 }

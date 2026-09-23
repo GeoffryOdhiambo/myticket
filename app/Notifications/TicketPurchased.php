@@ -45,6 +45,6 @@ class TicketPurchased extends Notification
 
         return $message
             ->line('Show the QR code on your ticket at the entrance to check in.')
-            ->line('Thank you for booking with Tiko!');
+            ->line('Thank you for booking with MyTicket!');
     }
 }

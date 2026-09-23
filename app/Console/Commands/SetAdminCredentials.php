@@ -22,8 +22,8 @@ class SetAdminCredentials extends Command
             return self::FAILURE;
         }
 
-        $admin = User::first() ?? new User(['name' => 'Tiko Super Admin']);
-        $admin->name = $admin->name ?: 'Tiko Super Admin';
+        $admin = User::first() ?? new User(['name' => 'MyTicket Super Admin']);
+        $admin->name = $admin->name ?: 'MyTicket Super Admin';
         $admin->email = $email;
         $admin->password = $password;
         $admin->save();

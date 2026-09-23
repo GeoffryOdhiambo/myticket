@@ -1,4 +1,4 @@
-<x-auth-card title="Create Organizer Account" subtitle="Register to start creating events and selling tickets on Tiko." portal="Organizer Portal">
+<x-auth-card title="Create Organizer Account" subtitle="Register to start creating events and selling tickets on MyTicket." portal="Organizer Portal">
     <form method="POST" action="{{ route('organizer.register.store') }}" class="space-y-5">
         @csrf
 

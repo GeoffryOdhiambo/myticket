@@ -17,9 +17,9 @@ class OrganizerRegistered extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $message = (new MailMessage)
-            ->subject('Welcome to Tiko')
+            ->subject('Welcome to MyTicket')
             ->greeting("Hi {$notifiable->name},")
-            ->line("Thanks for registering **{$notifiable->business_name}** as an organizer on Tiko.");
+            ->line("Thanks for registering **{$notifiable->business_name}** as an organizer on MyTicket.");
 
         if ($this->requiresApproval) {
             return $message

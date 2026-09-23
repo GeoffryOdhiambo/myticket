@@ -5,7 +5,7 @@
 
         <div class="mt-8 space-y-6 text-sm leading-relaxed text-neutral-600">
             <p>
-                Tiko collects only the information needed to process your ticket purchase: your name, WhatsApp
+                MyTicket collects only the information needed to process your ticket purchase: your name, WhatsApp
                 number, and email address. This information is used to deliver your ticket and to contact you
                 about your order.
             </p>

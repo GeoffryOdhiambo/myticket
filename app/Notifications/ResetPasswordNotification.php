@@ -25,7 +25,7 @@ class ResetPasswordNotification extends Notification
         ]);
 
         return (new MailMessage)
-            ->subject('Reset Your Tiko Password')
+            ->subject('Reset Your MyTicket Password')
             ->line('You are receiving this email because we received a password reset request for your account.')
             ->action('Reset Password', $url)
             ->line('This password reset link will expire in 60 minutes.')

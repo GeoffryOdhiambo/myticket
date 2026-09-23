@@ -1,4 +1,4 @@
-<x-auth-card title="Super Admin Login" subtitle="Log in to manage the Tiko platform." portal="Super Admin">
+<x-auth-card title="Super Admin Login" subtitle="Log in to manage the MyTicket platform." portal="Super Admin">
     <form method="POST" action="{{ route('admin.login.store') }}" class="space-y-5">
         @csrf
 
