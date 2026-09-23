@@ -11,6 +11,7 @@ use App\Models\EventCategory;
 use App\Models\Order;
 use App\Models\Setting;
 use App\Models\Ticket;
+use App\Services\ImageOptimizerService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -43,9 +44,9 @@ class EventController extends Controller
         ]);
     }
 
-    public function store(StoreEventRequest $request): RedirectResponse
+    public function store(StoreEventRequest $request, ImageOptimizerService $images): RedirectResponse
     {
-        $path = $request->file('image')->store('events', 'public');
+        $path = $images->store($request->file('image'), 'events');
 
         Auth::guard('organizer')->user()->events()->create([
             ...$request->validated(),
@@ -85,14 +86,14 @@ class EventController extends Controller
         ]);
     }
 
-    public function update(UpdateEventRequest $request, Event $event): RedirectResponse
+    public function update(UpdateEventRequest $request, Event $event, ImageOptimizerService $images): RedirectResponse
     {
         $this->ensureOwnsEvent($event);
 
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image_url'] = Storage::url($request->file('image')->store('events', 'public'));
+            $data['image_url'] = Storage::url($images->store($request->file('image'), 'events'));
         }
 
         $event->update($data);

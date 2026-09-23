@@ -11,6 +11,7 @@ use App\Models\OrderItem;
 use App\Models\Organizer;
 use App\Models\Payment;
 use App\Models\Ticket;
+use App\Services\ImageOptimizerService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -79,12 +80,12 @@ class EventController extends Controller
         ]);
     }
 
-    public function update(UpdateEventRequest $request, Event $event): RedirectResponse
+    public function update(UpdateEventRequest $request, Event $event, ImageOptimizerService $images): RedirectResponse
     {
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image_url'] = Storage::url($request->file('image')->store('events', 'public'));
+            $data['image_url'] = Storage::url($images->store($request->file('image'), 'events'));
         }
 
         $event->update($data);
