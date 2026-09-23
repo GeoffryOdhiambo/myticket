@@ -6,7 +6,9 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -42,5 +44,23 @@ return Application::configure(basePath: dirname(__DIR__))
         });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // A stale/expired CSRF token (e.g. a form left open past the
+        // session lifetime) would otherwise show Laravel's jarring "Page
+        // expired" screen. Send the user somewhere sensible instead: a
+        // logout attempt just lands them on the public site like a normal
+        // logout would; anything else goes back to where they were so they
+        // can retry with a fresh token. Laravel converts TokenMismatchException
+        // into a generic HttpException(419) before render callbacks run, so
+        // that's the type this has to match against, not the original.
+        $exceptions->render(function (HttpException $e, Request $request) {
+            if ($e->getStatusCode() !== 419) {
+                return null;
+            }
+
+            if (str_ends_with($request->path(), 'logout')) {
+                return redirect()->route('home');
+            }
+
+            return redirect()->back()->with('error', 'Your session expired. Please try again.');
+        });
     })->create();
