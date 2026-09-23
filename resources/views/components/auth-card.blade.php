@@ -19,7 +19,7 @@
                 @endif
 
                 @if(session('success'))
-                    <x-alert type="success" class="mt-5">{{ session('success') }}</x-alert>
+                    <x-toast type="success">{{ session('success') }}</x-toast>
                 @endif
 
                 @if($errors->any() && !$errors->has('email') && !$errors->has('password'))

@@ -60,10 +60,10 @@
                 @endif
 
                 @if(session('success'))
-                    <x-alert type="success" class="mt-3 sm:mt-4">{{ session('success') }}</x-alert>
+                    <x-toast type="success">{{ session('success') }}</x-toast>
                 @endif
                 @if(session('error'))
-                    <x-alert type="error" class="mt-3 sm:mt-4">{{ session('error') }}</x-alert>
+                    <x-toast type="error">{{ session('error') }}</x-toast>
                 @endif
 
                 <div class="{{ $heading ? 'mt-4 sm:mt-6' : '' }}">

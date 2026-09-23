@@ -11,6 +11,6 @@
 @endphp
 
 <div {{ $attributes->merge(['class' => "flex items-start gap-3 rounded-xl border px-4 py-3.5 text-sm font-medium {$style['bg']}"]) }}>
-    <x-heroicon-o-{{ $style['icon'] }} class="h-5 w-5 shrink-0 mt-0.5" />
+    <x-dynamic-component :component="'heroicon-o-' . $style['icon']" class="h-5 w-5 shrink-0 mt-0.5" />
     <div>{{ $slot }}</div>
 </div>
